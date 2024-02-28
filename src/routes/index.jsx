@@ -19,7 +19,7 @@ const PagesLanding = Loadable(lazy(() => import('pages/landing')));
 const router = createBrowserRouter(
   [
     {
-      path: '/home',
+      path: '/',
       element: <SimpleLayout layout={SimpleLayoutType.LANDING} />,
       children: [
         {
