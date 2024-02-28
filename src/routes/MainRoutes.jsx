@@ -121,11 +121,28 @@ const AppContactUS = Loadable(lazy(() => import('pages/contact-us')));
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')));
 const PricingPage = Loadable(lazy(() => import('pages/extra-pages/pricing')));
 
+// Production pages routes
+const Dashboard = Loadable(lazy(() => import('pages/production/dashboard')));
+const NewReport = Loadable(lazy(() => import('pages/production/new-report')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
   path: '/',
   children: [
+    {
+      path: '/production',
+      element: <DashboardLayout />,
+      children: [
+        {
+          path: 'dashboard',
+          element: <Dashboard />
+        },
+        {
+          path: 'new-report',
+          element: <NewReport />
+        }
+      ]
+    },
     {
       path: '/',
       element: <DashboardLayout />,
