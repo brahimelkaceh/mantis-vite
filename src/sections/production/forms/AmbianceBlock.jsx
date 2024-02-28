@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControlLabel, Grid, InputLabel, Slider, Stack, Switch, TextField, Typography } from '@mui/material';
+import { Button, Checkbox, Chip, FormControlLabel, Grid, InputLabel, Slider, Stack, Switch, TextField, Typography } from '@mui/material';
 import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import AnimateButton from 'components/@extended/AnimateButton';
@@ -37,7 +37,7 @@ const AmbianceBlock = ({ formik }) => {
     <Grid container spacing={3}>
       <Grid item xs={12} sm={12}>
         <Stack spacing={1} direction="row">
-          <Typography id="input-slider" gutterBottom>
+          <Typography id="input-slider" color={'textSecondary'} variant="caption" gutterBottom>
             Température intérieure
           </Typography>
           <Slider
@@ -53,7 +53,7 @@ const AmbianceBlock = ({ formik }) => {
       </Grid>
       <Grid item xs={12} sm={12}>
         <Stack spacing={1} direction="row">
-          <Typography id="input-slider" gutterBottom>
+          <Typography id="input-slider" gutterBottom variant="caption" color={'textSecondary'}>
             Température extérieure
           </Typography>
           <Slider
@@ -110,8 +110,9 @@ const AmbianceBlock = ({ formik }) => {
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12}>
-        <Stack flexDirection="row" alignItems="center">
-          <FormControlLabel value="top" control={<Switch color="primary" />} label="%" labelPlacement="left" />
+        <Stack flexDirection="row" gap={1} alignItems="center">
+          <Chip size="small" label="Intensité" color="warning" variant="outlined" />
+          <FormControlLabel value="top" control={<Switch size="small" color="primary" />} label="%" labelPlacement="left" />
           <Slider valueLabelDisplay="on" defaultValue={30} color="warning" />
         </Stack>
       </Grid>

@@ -1,16 +1,14 @@
-import { ClockCircleOutlined, PictureOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
-// import { Egg } from '@mui/icons-material';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Icon, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/system';
 import React, { useState } from 'react';
-import ProductionBlock from '../forms/ProductionBlock';
+import ReformeBlock from '../forms/ReformeBlock';
 
-const FirstBox = ({ formik }) => {
+const SixthBox = ({ formik }) => {
   const theme = useTheme();
   const [expanded, setExpanded] = useState('panel');
 
   const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : true);
+    setExpanded(newExpanded ? panel : false);
   };
   return (
     <Box
@@ -18,16 +16,14 @@ const FirstBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#8b4513',
-            color: '#fff',
-            borderRadius: 1,
-            flexDirection: 'row'
+            bgcolor: theme.palette.secondary[200],
+            flexDirection: 'row',
+            borderRadius: 1
           },
           '& .MuiAccordionDetails-root': {
             borderColor: theme.palette.divider
           },
           '& .Mui-expanded': {
-            color: '#fff',
             fontWeight: 'bold',
             borderRadius: 1,
             borderBottomLeftRadius: 0,
@@ -39,15 +35,15 @@ const FirstBox = ({ formik }) => {
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Stack direction="row" spacing={1.5} alignItems="center">
-            <Typography variant="h6">Production </Typography>
+            <Typography variant="h6">Réforme </Typography>
           </Stack>
         </AccordionSummary>
         <AccordionDetails>
-          <ProductionBlock formik={formik} />
+          <ReformeBlock formik={formik} />
         </AccordionDetails>
       </Accordion>
     </Box>
   );
 };
 
-export default FirstBox;
+export default SixthBox;

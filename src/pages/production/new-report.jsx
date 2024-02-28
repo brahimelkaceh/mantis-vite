@@ -80,7 +80,7 @@ const NewReport = () => {
       <Grid item xs={12}>
         <MainCard>
           <form onSubmit={formik.handleSubmit}>
-            <Grid container>
+            <Grid container spacing={3}>
               <Grid item xs={12}>
                 <ReportForm formik={formik} />
               </Grid>

@@ -7,14 +7,14 @@ const ViabiliteBlock = ({ formik }) => {
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6}>
         <Stack spacing={1}>
-          <InputLabel>Mortalité (Sujet)</InputLabel>
           <TextField
             id="mort"
             name="mort"
-            placeholder="Mortalité (Sujet)"
+            label="Mortalité (Sujet)"
             value={formik.values.mort}
             onChange={formik.handleChange}
             error={formik.touched.mort && Boolean(formik.errors.mort)}
+            onBlur={formik.handleBlur}
             helperText={formik.touched.mort && formik.errors.mort}
             fullWidth
           />
@@ -22,45 +22,45 @@ const ViabiliteBlock = ({ formik }) => {
       </Grid>
       <Grid item xs={12} sm={6}>
         <Stack spacing={1}>
-          <InputLabel>Triage (Sujet)</InputLabel>
           <TextField
             id="hensEliminated"
             name="hensEliminated"
-            placeholder="Triage (Sujet)"
+            label="Triage (Sujet)"
             fullWidth
             value={formik.values.hensEliminated}
             onChange={formik.handleChange}
             error={formik.touched.hensEliminated && Boolean(formik.errors.hensEliminated)}
+            onBlur={formik.handleBlur}
             helperText={formik.touched.hensEliminated && formik.errors.hensEliminated}
           />
         </Stack>
       </Grid>
       <Grid item xs={12} sm={6}>
         <Stack spacing={1}>
-          <InputLabel>Poids corporel (g)</InputLabel>
           <TextField
             id="poidVif"
             name="poidVif"
-            placeholder="Poids corporel (g)"
+            label="Poids corporel (g)"
             fullWidth
             value={formik.values.poidVif}
             onChange={formik.handleChange}
             error={formik.touched.poidVif && Boolean(formik.errors.poidVif)}
+            onBlur={formik.handleBlur}
             helperText={formik.touched.poidVif && formik.errors.poidVif}
           />
         </Stack>
       </Grid>
       <Grid item xs={12} sm={6}>
         <Stack spacing={1}>
-          <InputLabel>Homogeneité (%)</InputLabel>
           <TextField
             id="homog"
             name="homog"
-            placeholder="Homogeneité (%)"
+            label="Homogeneité (%)"
             fullWidth
             value={formik.values.homog}
             onChange={formik.handleChange}
             error={formik.touched.homog && Boolean(formik.errors.homog)}
+            onBlur={formik.handleBlur}
             helperText={formik.touched.homog && formik.errors.homog}
           />
         </Stack>

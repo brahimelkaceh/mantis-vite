@@ -55,10 +55,12 @@ const SelectedComponents = () => {
     <Grid container spacing={2} alignItems={'end'}>
       <Grid item xs={12} md={6} lg={4}>
         <Stack spacing={1}>
-          <InputLabel htmlFor="age">Sites</InputLabel>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <Select id="age" name="age" value={formik.values.age} onChange={formik.handleChange}>
-              <MenuItem value="">
+          <Typography color={'GrayText'} variant="caption" gutterBottom>
+            Sites
+          </Typography>
+          <FormControl sx={{ m: 1, mt: 0, minWidth: 120 }}>
+            <Select value={formik.values.age} onChange={formik.handleChange}>
+              <MenuItem value="" disabled>
                 <em>Selectionnez site</em>
               </MenuItem>
               <MenuItem value={10}>Site 1</MenuItem>
@@ -76,7 +78,9 @@ const SelectedComponents = () => {
       </Grid>
       <Grid item xs={12} md={6} lg={4}>
         <Stack spacing={1}>
-          <InputLabel htmlFor="age">Bâtiments</InputLabel>
+          <Typography color={'GrayText'} variant="caption" gutterBottom>
+            Bâtiments
+          </Typography>{' '}
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select id="age" name="age" value={formik.values.age} onChange={formik.handleChange}>
               <MenuItem value="">

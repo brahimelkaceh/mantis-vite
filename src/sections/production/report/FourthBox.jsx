@@ -35,7 +35,7 @@ const HeartIcon = (props) => <Icon component={HeartSvg} {...props} />;
 
 const FourthBox = ({ formik }) => {
   const theme = useTheme();
-  const [expanded, setExpanded] = useState('panel1');
+  const [expanded, setExpanded] = useState('panel');
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -48,12 +48,14 @@ const FourthBox = ({ formik }) => {
           '& .MuiAccordionSummary-root': {
             bgcolor: '#61dafb',
             color: '#22223b',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            borderRadius: 1
           },
           '& .MuiAccordionDetails-root': {
             borderColor: theme.palette.divider
           },
           '& .Mui-expanded': {
+            color: '#22223b',
             fontWeight: 'bold',
             borderRadius: 1,
             borderBottomLeftRadius: 0,
