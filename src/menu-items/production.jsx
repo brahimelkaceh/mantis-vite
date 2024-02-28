@@ -34,6 +34,13 @@ const production = {
       type: 'item',
       url: '/production/new-report',
       icon: icons.FileAddOutlined
+    },
+    {
+      id: 'new-report',
+      title: <FormattedMessage id="Saisie de données" />,
+      type: 'item',
+      url: '/production/new-report',
+      icon: icons.FileAddOutlined
     }
   ]
 };
