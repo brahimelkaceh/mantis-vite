@@ -46,8 +46,7 @@ const FourthBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#61dafb',
-            color: '#22223b',
+            bgcolor: '#039be5',
             flexDirection: 'row',
             borderRadius: 1
           },
@@ -55,7 +54,6 @@ const FourthBox = ({ formik }) => {
             borderColor: theme.palette.divider
           },
           '& .Mui-expanded': {
-            color: '#22223b',
             fontWeight: 'bold',
             borderRadius: 1,
             borderBottomLeftRadius: 0,

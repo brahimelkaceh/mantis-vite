@@ -18,7 +18,7 @@ const FifthBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#ffc000',
+            bgcolor: '#ffeb3b',
             color: '#000000',
             flexDirection: 'row',
             borderRadius: 1

@@ -20,7 +20,7 @@ const ThirdBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#61bc84',
+            bgcolor: '#4caf50',
             borderRadius: 1,
             flexDirection: 'row'
           },

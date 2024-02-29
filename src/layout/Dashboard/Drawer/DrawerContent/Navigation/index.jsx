@@ -79,7 +79,7 @@ const Navigation = () => {
       case 'group':
         if (item.url && item.id !== lastItemId) {
           return (
-            <List key={item.id} {...(isHorizontal && { sx: { mt: 0.5 } })}>
+            <List key={item.id} {...(isHorizontal && { sx: { mt: 0 } })}>
               {!isHorizontal && index !== 0 && <Divider sx={{ my: 0.5 }} />}
               <NavItem item={item} level={1} isParents />
             </List>

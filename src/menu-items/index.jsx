@@ -7,12 +7,14 @@ import samplePage from './sample-page';
 import other from './other';
 import pages from './pages';
 import production from './production';
+import performances from './performances';
+import create_report from './create-report';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
   // items: [widget, applications, formsTables, chartsMap, samplePage, pages, other]
-  items: [production]
+  items: [production, create_report, performances]
 };
 
 export default menuItems;

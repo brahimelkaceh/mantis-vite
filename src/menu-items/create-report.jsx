@@ -25,13 +25,12 @@ const icons = {
 
 // ==============================|| MENU ITEMS - PRODUCTION ||============================== //
 
-const production = {
-  id: 'group-production',
-  title: <FormattedMessage id="Dashboard" />,
-  icon: icons.HomeOutlined,
+const create_report = {
+  id: 'new-report',
+  title: <FormattedMessage id="Saisie de données" />,
+  icon: icons.FileAddOutlined,
   type: 'group',
-  url: '/production/dashboard',
-  icon: icons.HomeOutlined
+  url: '/production/new-report'
 };
 
-export default production;
+export default create_report;

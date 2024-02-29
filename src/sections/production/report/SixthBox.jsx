@@ -16,7 +16,8 @@ const SixthBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: theme.palette.secondary[200],
+            bgcolor: '#37474f',
+            color: '#eceff1',
             flexDirection: 'row',
             borderRadius: 1
           },
@@ -25,6 +26,7 @@ const SixthBox = ({ formik }) => {
           },
           '& .Mui-expanded': {
             fontWeight: 'bold',
+            color: '#eceff1',
             borderRadius: 1,
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0

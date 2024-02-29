@@ -124,6 +124,8 @@ const PricingPage = Loadable(lazy(() => import('pages/extra-pages/pricing')));
 // Production pages routes
 const Dashboard = Loadable(lazy(() => import('pages/production/dashboard')));
 const NewReport = Loadable(lazy(() => import('pages/production/new-report')));
+const PerformanceTable = Loadable(lazy(() => import('pages/production/performance-table')));
+const PerformanceCharts = Loadable(lazy(() => import('pages/production/performance-charts')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -140,6 +142,19 @@ const MainRoutes = {
         {
           path: 'new-report',
           element: <NewReport />
+        },
+        {
+          path: '/production',
+          children: [
+            {
+              path: 'performance-table',
+              element: <PerformanceTable />
+            },
+            {
+              path: 'performance-charts',
+              element: <PerformanceCharts />
+            }
+          ]
         }
       ]
     },

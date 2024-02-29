@@ -324,7 +324,7 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
                         <>
                           <SimpleBar
                             sx={{
-                              minWidth: 200,
+                              minWidth: 240,
                               overflowX: 'hidden',
                               overflowY: 'auto',
                               maxHeight: 'calc(100vh - 170px)'

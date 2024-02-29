@@ -18,8 +18,7 @@ const SecondBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#ffe0c8',
-            color: '#0d1f2d',
+            bgcolor: '#9575cd',
             borderRadius: 1,
             flexDirection: 'row'
           },
@@ -27,7 +26,6 @@ const SecondBox = ({ formik }) => {
             borderColor: theme.palette.divider
           },
           '& .Mui-expanded': {
-            color: '#0d1f2d',
             fontWeight: 'bold',
             borderRadius: 1,
             borderBottomLeftRadius: 0,
