@@ -40,10 +40,10 @@ const Navigation = () => {
     });
 
     if (menuLoading) {
-      menuItem.items.splice(0, 0, dashboardMenu);
+      menuItem.items.splice(0, 0);
       setMenuItems({ items: [...menuItem.items] });
     } else if (!menuLoading && dashboardMenu?.id !== undefined && !isFound) {
-      menuItem.items.splice(0, 1, dashboardMenu);
+      menuItem.items.splice(0, 1);
       setMenuItems({ items: [...menuItem.items] });
     } else {
       setMenuItems({ items: [...menuItem.items] });

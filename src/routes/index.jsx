@@ -10,17 +10,18 @@ import SimpleLayout from 'layout/Simple';
 import Loadable from 'components/Loadable';
 
 import { SimpleLayoutType } from 'config';
+import DashboardLayout from 'layout/Dashboard';
 
 // render - landing page
-const PagesLanding = Loadable(lazy(() => import('pages/landing')));
+const PagesLanding = Loadable(lazy(() => import('pages/production/dashboard')));
 
 // ==============================|| ROUTING RENDER ||============================== //
 
 const router = createBrowserRouter(
   [
     {
-      path: '/',
-      element: <SimpleLayout layout={SimpleLayoutType.LANDING} />,
+      path: '/production/dashboard',
+      element: <DashboardLayout layout={SimpleLayoutType.LANDING} />,
       children: [
         {
           index: true,

@@ -72,6 +72,7 @@ export const MenuFromAPI = () => {
   });
 
   let menuList = fillItem(menu, childrenList);
+  return;
   return menuList;
 };
 
