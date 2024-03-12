@@ -1,0 +1,45 @@
+/* Table Headers */
+.css-18nz61b-MuiTableHead-root th {
+  border: none;
+}
+.calendrie {
+  background: #f2b84482;
+}
+.ambiance {
+  background-color: #66c5f5ac !important; /* Light Blue */
+}
+
+.viability {
+  background-color: #946cda6a !important; /* Light Green */
+}
+
+.consommation {
+  background-color: #4caf4f6a !important; /* Light Yellow */
+}
+.production {
+  background-color: #9d4a0e74 !important;
+}
+.mass-oeuf {
+  background-color: #eba13295 !important;
+}
+.ic-header {
+  background-color: #dbc81f6f;
+}
+.prohylaxie-header {
+  color: #0097a7 !important; /* Light Orange */
+}
+
+.observ-header {
+  color: #ffccbc !important; /* Light Gray */
+}
+
+.reforme {
+  background-color: #a6949458;
+}
+.sticky-header {
+  position: sticky;
+  /* top: 0; */
+  width: 100%;
+  z-index: 100;
+  /* overflow: scroll; */
+}

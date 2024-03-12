@@ -18,8 +18,6 @@ const FifthBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#ffeb3b',
-            color: '#000000',
             flexDirection: 'row',
             borderRadius: 1
           },
@@ -27,7 +25,6 @@ const FifthBox = ({ formik }) => {
             borderColor: theme.palette.divider
           },
           '& .Mui-expanded': {
-            color: '#000000',
             fontWeight: 'bold',
             borderRadius: 1,
             borderBottomLeftRadius: 0,
@@ -37,7 +34,7 @@ const FifthBox = ({ formik }) => {
       }}
     >
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionSummary className="ic-header" aria-controls="panel1d-content" id="panel1d-header">
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Typography variant="h6">Constats </Typography>
           </Stack>

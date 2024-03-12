@@ -1,5 +1,6 @@
 import { SmileOutlined } from '@ant-design/icons';
-import { Box, Button, Checkbox, FormControlLabel, Grid, InputLabel, Rating, Stack, TextField, Typography } from '@mui/material';
+import { Egg, EggOutlined, Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Box, Button, Checkbox, FormControlLabel, Grid, InputLabel, Rating, Stack, TextField, Typography, styled } from '@mui/material';
 import AnimateButton from 'components/@extended/AnimateButton';
 import React, { useState } from 'react';
 const labels = {
@@ -16,6 +17,14 @@ const colors = {
   4: '100',
   5: '110'
 };
+const StyledRating = styled(Rating)({
+  '& .MuiRating-iconFilled': {
+    color: '#b26046'
+  },
+  '& .MuiRating-iconHover': {
+    color: '#a13311'
+  }
+});
 const ConstatsBlock = ({ formik }) => {
   const [value, setValue] = useState(2);
   const [hover, setHover] = useState(-1);
@@ -59,7 +68,7 @@ const ConstatsBlock = ({ formik }) => {
             alignItems: 'center'
           }}
         >
-          <Rating
+          <StyledRating
             name="hover-feedback"
             value={value}
             precision={1}
@@ -69,6 +78,8 @@ const ConstatsBlock = ({ formik }) => {
             onChangeActive={(event, newHover) => {
               setHover(newHover);
             }}
+            icon={<Egg fontSize="inherit" />}
+            emptyIcon={<EggOutlined fontSize="inherit" />}
           />
           {value !== null && <Box sx={{ ml: 2 }}>{colors[hover !== -1 ? hover : value]}</Box>}
         </Box>

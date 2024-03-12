@@ -3,6 +3,7 @@ import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import AnimateButton from 'components/@extended/AnimateButton';
 import React, { useState } from 'react';
+import LightOn, { FlashDure, FlashOff, FlashOn, LightDure, LightOff } from './times-modals';
 const marks = [
   {
     value: 0,
@@ -70,42 +71,42 @@ const AmbianceBlock = ({ formik }) => {
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <TimePicker label="Allumage de lumiére" value={value} onChange={handleChange} />
+            <LightOn />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <TimePicker label="Extinction de lumière" value={value} onChange={handleChange} />
+            <LightOff />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <TimePicker label="Durée de flash" value={value} onChange={handleChange} />
+            <LightDure />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <TimePicker label="Allumage de flash" value={value} onChange={handleChange} />
+            <FlashOn />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <TimePicker label="Extinction de lumière" value={value} onChange={handleChange} />
+            <FlashOff />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <TimePicker label="Durée de flash" value={value} onChange={handleChange} />
+            <FlashDure />
           </Stack>
         </LocalizationProvider>
       </Grid>

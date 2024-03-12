@@ -9,10 +9,25 @@ import { useFormik } from 'formik';
 import ReportForm from 'sections/production/report/ReportForm';
 import SelectedComponents from 'sections/production/report/SelectedComponents';
 import { validationSchema } from './validation-schema';
+import { useEffect } from 'react';
+import api from 'api/production';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const NewReport = () => {
+  const fetchPoussLot = async () => {
+    try {
+      const result = await api.getProdSites();
+      if (result.status === 200) {
+        console.log(result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchPoussLot();
+  }, []);
   const formik = useFormik({
     initialValues: {
       batiment: '',

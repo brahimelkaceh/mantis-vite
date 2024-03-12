@@ -16,8 +16,6 @@ const SixthBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#37474f',
-            color: '#eceff1',
             flexDirection: 'row',
             borderRadius: 1
           },
@@ -26,7 +24,6 @@ const SixthBox = ({ formik }) => {
           },
           '& .Mui-expanded': {
             fontWeight: 'bold',
-            color: '#eceff1',
             borderRadius: 1,
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0
@@ -35,7 +32,7 @@ const SixthBox = ({ formik }) => {
       }}
     >
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionSummary className="reforme" aria-controls="panel1d-content" id="panel1d-header">
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Typography variant="h6">Réforme </Typography>
           </Stack>

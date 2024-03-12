@@ -46,23 +46,21 @@ const setSession = (serviceToken) => {
 // ==============================|| JWT CONTEXT & PROVIDER ||============================== //
 
 const JWTContext = createContext(null);
+let base_url = 'https://farmdriver.savas.ma/api/';
 
 export const JWTProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
-
   useEffect(() => {
     const init = async () => {
       try {
-        const serviceToken = window.localStorage.getItem('serviceToken');
-        if (serviceToken && verifyToken(serviceToken)) {
-          setSession(serviceToken);
-          const response = await axios.get('/api/account/me');
-          const { user } = response.data;
+        const refresh = window.localStorage.getItem('serviceToken');
+        if (refresh && verifyToken(refresh)) {
+          setSession(refresh);
+
           dispatch({
             type: LOGIN,
             payload: {
-              isLoggedIn: true,
-              user
+              isLoggedIn: true
             }
           });
         } else {
@@ -81,15 +79,15 @@ export const JWTProvider = ({ children }) => {
     init();
   }, []);
 
-  const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', { email, password });
-    const { serviceToken, user } = response.data;
-    setSession(serviceToken);
+  const login = async (username, password) => {
+    const response = await axios.post(`${base_url}token`, { username, password });
+
+    const { access } = response.data;
+    setSession(access);
     dispatch({
       type: LOGIN,
       payload: {
-        isLoggedIn: true,
-        user
+        isLoggedIn: true
       }
     });
   };

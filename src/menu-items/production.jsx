@@ -30,8 +30,7 @@ const production = {
   title: <FormattedMessage id="Dashboard" />,
   icon: icons.HomeOutlined,
   type: 'group',
-  url: '/production/dashboard',
-  icon: icons.HomeOutlined
+  url: '/production/dashboard'
 };
 
 export default production;

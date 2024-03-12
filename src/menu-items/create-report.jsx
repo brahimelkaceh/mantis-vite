@@ -31,6 +31,7 @@ const create_report = {
   icon: icons.FileAddOutlined,
   type: 'group',
   url: '/production/new-report'
+  // url: '/new-report'
 };
 
 export default create_report;

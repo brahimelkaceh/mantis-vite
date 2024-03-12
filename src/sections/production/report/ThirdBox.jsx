@@ -20,7 +20,6 @@ const ThirdBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#4caf50',
             borderRadius: 1,
             flexDirection: 'row'
           },
@@ -37,7 +36,7 @@ const ThirdBox = ({ formik }) => {
       }}
     >
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionSummary className="consommation" aria-controls="panel1d-content" id="panel1d-header">
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Typography variant="h6">Consommation </Typography>
           </Stack>

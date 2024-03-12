@@ -18,7 +18,6 @@ const SecondBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#9575cd',
             borderRadius: 1,
             flexDirection: 'row'
           },
@@ -35,7 +34,7 @@ const SecondBox = ({ formik }) => {
       }}
     >
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionSummary className="viability" aria-controls="panel1d-content" id="panel1d-header">
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Typography variant="h6">Viabilité </Typography>
           </Stack>

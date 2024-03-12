@@ -31,6 +31,7 @@ import { fetcher } from 'utils/axios';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import LoadingButton from 'components/@extended/LoadingButton';
 
 // ============================|| JWT - LOGIN ||============================ //
 
@@ -53,17 +54,18 @@ const AuthLogin = ({ isDemo = false }) => {
     <>
       <Formik
         initialValues={{
-          email: 'info@codedthemes.com',
-          password: '123456',
+          username: 'test',
+          password: '123',
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+          username: Yup.string().required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+          // return;
           try {
-            await login(values.email, values.password);
+            await login(values.username, values.password);
             if (scriptedRef.current) {
               setStatus({ success: true });
               setSubmitting(false);
@@ -84,28 +86,28 @@ const AuthLogin = ({ isDemo = false }) => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                  <InputLabel htmlFor="email-login">Identifiant</InputLabel>
                   <OutlinedInput
                     id="email-login"
-                    type="email"
-                    value={values.email}
-                    name="email"
+                    type="text"
+                    value={values.username}
+                    name="username"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Enter email address"
+                    placeholder="Entrer l'dentifiant"
                     fullWidth
-                    error={Boolean(touched.email && errors.email)}
+                    error={Boolean(touched.username && errors.username)}
                   />
                 </Stack>
-                {touched.email && errors.email && (
+                {touched.username && errors.username && (
                   <FormHelperText error id="standard-weight-helper-text-email-login">
-                    {errors.email}
+                    {errors.username}
                   </FormHelperText>
                 )}
               </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="password-login">Password</InputLabel>
+                  <InputLabel htmlFor="password-login">Mot de passe</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.password && errors.password)}
@@ -128,7 +130,7 @@ const AuthLogin = ({ isDemo = false }) => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    placeholder="Enter password"
+                    placeholder="Entrer le mot de passe"
                   />
                 </Stack>
                 {touched.password && errors.password && (
@@ -150,11 +152,11 @@ const AuthLogin = ({ isDemo = false }) => {
                         size="small"
                       />
                     }
-                    label={<Typography variant="h6">Keep me sign in</Typography>}
+                    label={<Typography variant="h6">Gardez-moi connecté</Typography>}
                   />
-                  <Link variant="h6" component={RouterLink} to={isDemo ? '/auth/forgot-password' : '/forgot-password'} color="text.primary">
+                  {/* <Link variant="h6" component={RouterLink} to={isDemo ? '/auth/forgot-password' : '/forgot-password'} color="text.primary">
                     Forgot Password?
-                  </Link>
+                  </Link> */}
                 </Stack>
               </Grid>
               {errors.submit && (
@@ -164,9 +166,17 @@ const AuthLogin = ({ isDemo = false }) => {
               )}
               <Grid item xs={12}>
                 <AnimateButton>
-                  <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                    Login
-                  </Button>
+                  <LoadingButton
+                    disableElevation
+                    loading={isSubmitting}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                  >
+                    Se Connecter
+                  </LoadingButton>
                 </AnimateButton>
               </Grid>
             </Grid>

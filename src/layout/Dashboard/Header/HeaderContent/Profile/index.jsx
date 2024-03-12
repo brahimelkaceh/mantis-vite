@@ -53,7 +53,7 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate(`/login`, {
+      navigate(`/production/login`, {
         state: {
           from: ''
         }

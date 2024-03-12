@@ -24,8 +24,7 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: true,
-        isInitialized: true,
-        user
+        isInitialized: true
       };
     }
     case LOGOUT: {

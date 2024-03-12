@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 // material-ui
-import { Box, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Grid, Tab, Tabs, Typography } from '@mui/material';
 import { BookOutlined, FileImageOutlined, SelectOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import MainCard from 'components/MainCard';
 import PreferencePanel from './preference-panel';
@@ -36,22 +36,24 @@ const HeaderTabs = () => {
   };
 
   return (
-    <MainCard>
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="Panel de Préférences" icon={<SelectOutlined />} iconPosition="start" {...a11yProps(0)} />
-            <Tab label="Bilan Partiel" icon={<BookOutlined />} iconPosition="start" {...a11yProps(1)} />
-          </Tabs>
+    <Grid item xs={12}>
+      <MainCard>
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+              <Tab label="Panel de Préférences" icon={<SelectOutlined />} iconPosition="start" {...a11yProps(0)} />
+              <Tab label="Bilan Partiel" icon={<BookOutlined />} iconPosition="start" {...a11yProps(1)} />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            <PreferencePanel />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <BilanPArtiel />
+          </TabPanel>
         </Box>
-        <TabPanel value={value} index={0}>
-          <PreferencePanel />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <BilanPArtiel />
-        </TabPanel>
-      </Box>
-    </MainCard>
+      </MainCard>
+    </Grid>
   );
 };
 

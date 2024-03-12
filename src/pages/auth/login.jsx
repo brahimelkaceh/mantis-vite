@@ -18,12 +18,12 @@ const Login = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
-            <Typography variant="h3">Login</Typography>
+            <Typography variant="h3">Se Connecter</Typography>
             <Typography
               component={Link}
               to={isLoggedIn ? '/auth/register' : '/register'}
               variant="body1"
-              sx={{ textDecoration: 'none' }}
+              sx={{ textDecoration: 'none', display: 'none' }}
               color="primary"
             >
               Don&apos;t have an account?

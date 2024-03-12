@@ -8,6 +8,7 @@ import ThirdBox from './ThirdBox';
 import FourthBox from './FourthBox';
 import FifthBox from './FifthBox';
 import SixthBox from './SixthBox';
+import '../style.css';
 
 const ReportForm = ({ formik }) => {
   return (

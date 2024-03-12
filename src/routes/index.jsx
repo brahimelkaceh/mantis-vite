@@ -20,7 +20,8 @@ const PagesLanding = Loadable(lazy(() => import('pages/production/dashboard')));
 const router = createBrowserRouter(
   [
     {
-      path: '/production/dashboard',
+      path: '/',
+      // path: '/production/dashboard',
       element: <DashboardLayout layout={SimpleLayoutType.LANDING} />,
       children: [
         {

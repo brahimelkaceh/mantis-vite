@@ -1,11 +1,12 @@
 // material-ui
 import { TwitterOutlined, ProjectOutlined } from '@ant-design/icons';
 import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
+import api from 'api/production';
 import MainCard from 'components/MainCard';
 
 // project import
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IncomeAreaChart from 'sections/dashboard/default/IncomeAreaChart';
 import FirstCard from 'sections/production/dashboard/cards/first-card';
 import WeatherCard from 'sections/production/dashboard/cards/weather/weather-card';
@@ -15,7 +16,17 @@ import WeatherCard from 'sections/production/dashboard/cards/weather/weather-car
 const Dashboard = () => {
   const theme = useTheme();
   const [slot, setSlot] = useState('week');
-
+  const fetchPoussLot = async () => {
+    try {
+      const result = await api.getProdSites();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchPoussLot();
+  }, []);
   return (
     <Grid container alignItems={'start'} rowSpacing={4.5} columnSpacing={2.75}>
       <Grid item container rowSpacing={3} columnSpacing={2.75} xs={12} lg={9} sm={6}>

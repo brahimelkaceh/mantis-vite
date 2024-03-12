@@ -14,42 +14,91 @@ import {
   Divider
 } from '@mui/material';
 
-// project imports
-import MainCard from 'components/MainCard';
-import AnimateButton from 'components/@extended/AnimateButton';
+import api from 'api/production';
 import { openSnackbar } from 'api/snackbar';
-
-// third-party
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-
-/**
- * 'Enter your age'
- * yup.number Expected 0 arguments, but got 1 */
-const validationSchema = yup.object({
-  age: yup.number().required('Age selection is required.')
-});
-
-// ==============================|| FORM VALIDATION - LOGIN FORMIK ||============================== //
+import { useEffect, useState } from 'react';
 
 const SelectedComponents = () => {
-  const formik = useFormik({
-    initialValues: {
-      age: ''
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      console.log('select form submit - ', values);
+  const [sites, setSites] = useState([]);
+  const [lots, setLots] = useState([]);
+  const [lotId, setLotId] = useState('');
+  const [siteId, setSiteId] = useState('');
+  const [nextSendData, setNextSendData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const fetchProdSite = async () => {
+    try {
+      setLoading(true);
+      const result = await api.getProdSites();
+      if (result.status === 200) {
+        setSites(result?.data);
+        setLoading(false);
+      }
+    } catch (error) {
       openSnackbar({
         open: true,
-        message: 'Select - Submit Success',
+        message: 'Échec de récupération les données; Veuillez réessayer.',
         variant: 'alert',
         alert: {
-          color: 'success'
+          color: 'error'
         }
       });
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-  });
+  };
+  useEffect(() => {
+    fetchProdSite();
+  }, []);
+  const fetchLotData = async (id) => {
+    try {
+      setLoading(true);
+      const result = await api.getLotTitles(id);
+      console.log('result', result);
+      if (result.status === 200) {
+        setLots(result.data);
+        setLoading(false);
+        console.log('lots , ', result);
+      }
+    } catch (error) {
+      openSnackbar({
+        open: true,
+        message: 'Échec de récupération les lots; Veuillez réessayer.',
+        variant: 'alert',
+        alert: {
+          color: 'error'
+        }
+      });
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const fetchNextSendData = async (id) => {
+    console.log(id);
+    try {
+      setLoading(true);
+      const result = await api.getProudNext(id);
+      console.log('result', result);
+      if (result.status === 200) {
+        setNextSendData(result.data);
+        setLoading(false);
+        console.log('next send : ', result);
+      }
+    } catch (error) {
+      openSnackbar({
+        open: true,
+        message: 'Échec de récupération les données; Veuillez réessayer.',
+        variant: 'alert',
+        alert: {
+          color: 'error'
+        }
+      });
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Grid container spacing={2} alignItems={'end'}>
@@ -59,20 +108,23 @@ const SelectedComponents = () => {
             Sites
           </Typography>
           <FormControl sx={{ m: 1, mt: 0, minWidth: 120 }}>
-            <Select value={formik.values.age} onChange={formik.handleChange}>
+            <Select
+              value={siteId}
+              disabled={loading}
+              onChange={(e) => {
+                setSiteId(e.target.value);
+                fetchLotData(e.target.value);
+              }}
+            >
               <MenuItem value="" disabled>
                 <em>Selectionnez site</em>
               </MenuItem>
-              <MenuItem value={10}>Site 1</MenuItem>
-              <MenuItem value={20}>Site 2</MenuItem>
-              <MenuItem value={30}>Site 3</MenuItem>
+              {sites?.map((site, i) => (
+                <MenuItem key={site.id} value={site.id}>
+                  {site.name}
+                </MenuItem>
+              ))}
             </Select>
-            {formik.errors.age && (
-              <FormHelperText error id="standard-weight-helper-text-email-login">
-                {' '}
-                {formik.errors.age}{' '}
-              </FormHelperText>
-            )}
           </FormControl>
         </Stack>
       </Grid>
@@ -82,20 +134,25 @@ const SelectedComponents = () => {
             Bâtiments
           </Typography>{' '}
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <Select id="age" name="age" value={formik.values.age} onChange={formik.handleChange}>
-              <MenuItem value="">
+            <Select
+              value={lotId ?? ' '}
+              onChange={(e) => {
+                setLotId(e.target.value);
+                fetchNextSendData(e.target.value);
+              }}
+            >
+              <MenuItem value="" disabled>
                 <em>Selectionnez bâtiment</em>
               </MenuItem>
-              <MenuItem value={10}>Bâtiment 1</MenuItem>
-              <MenuItem value={20}>Bâtiment 2</MenuItem>
-              <MenuItem value={30}>Bâtiment 3</MenuItem>
+              {lots?.map((lot, i) => (
+                <MenuItem key={lot.id} value={lot.id}>
+                  <Typography component={'span'}>{lot.batiment}</Typography>
+                  <Typography color={'gray'} pl={1} variant="caption" component={'span'}>
+                    ({lot.code})
+                  </Typography>
+                </MenuItem>
+              ))}
             </Select>
-            {formik.errors.age && (
-              <FormHelperText error id="standard-weight-helper-text-email-login">
-                {' '}
-                {formik.errors.age}{' '}
-              </FormHelperText>
-            )}
           </FormControl>
         </Stack>
       </Grid>
@@ -103,14 +160,14 @@ const SelectedComponents = () => {
         <ListItem sx={{ py: 0.5, px: 0 }}>
           <ListItemText secondary={'Rapport de :'} />
           <Typography variant="subtitle1" sx={{ color: 'warning.main' }}>
-            16/02/2024
+            {nextSendData?.nextDate}
           </Typography>
         </ListItem>
         <Divider />
         <ListItem sx={{ py: 0.5, px: 0, pb: 0 }}>
           <ListItemText secondary={'Code lot :'} />
           <Typography variant="subtitle1" sx={{ color: 'warning.main' }}>
-            02B1NOV22-HL-DK
+            {nextSendData?.lot_code}
           </Typography>
         </ListItem>
       </Grid>

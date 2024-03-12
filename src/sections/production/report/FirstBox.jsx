@@ -18,8 +18,6 @@ const FirstBox = ({ formik }) => {
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
           '& .MuiAccordionSummary-root': {
-            bgcolor: '#8b4513',
-            color: '#fff',
             borderRadius: 1,
             flexDirection: 'row'
           },
@@ -27,7 +25,6 @@ const FirstBox = ({ formik }) => {
             borderColor: theme.palette.divider
           },
           '& .Mui-expanded': {
-            color: '#fff',
             fontWeight: 'bold',
             borderRadius: 1,
             borderBottomLeftRadius: 0,
@@ -37,7 +34,7 @@ const FirstBox = ({ formik }) => {
       }}
     >
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <AccordionSummary className="production" aria-controls="panel1d-content" id="panel1d-header">
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Typography variant="h6">Production </Typography>
           </Stack>
