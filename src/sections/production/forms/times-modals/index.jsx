@@ -2,13 +2,15 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import { Box, Chip } from '@mui/material';
-import { StaticTimePicker, TimePickerToolbar } from '@mui/x-date-pickers';
+import { Chip, DialogTitle, Divider, Typography, useTheme } from '@mui/material';
+import { TimeClock } from '@mui/x-date-pickers';
 import { ClockCircleFilled } from '@ant-design/icons';
+import { borderColor } from '@mui/system';
 
-export default function LightOn() {
+export default function LightOn({ formik }) {
   const [open, setOpen] = React.useState(false);
-  const [lightOn, setLightOn] = React.useState('');
+  const theme = useTheme();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -16,20 +18,6 @@ export default function LightOn() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function CustomToolbar(props) {
-    const { classes, theme, date, isLandscape, openView, setOpenView, onCancel, onAccept, ...other } = props;
-    return (
-      <Box
-        // Pass the className to the root element to get correct layout
-        className={props.className}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-      >
-        <TimePickerToolbar {...other} ampm={false} date={date} isLandscape={isLandscape} openView={openView} setOpenView={setOpenView} />
-      </Box>
-    );
-  }
-
   return (
     <React.Fragment>
       <Chip
@@ -41,18 +29,59 @@ export default function LightOn() {
         icon={<ClockCircleFilled />}
       />
       <Dialog open={open} onClose={handleClose}>
-        <StaticTimePicker
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: 1.5
+          }}
+        >
+          <Typography variant="caption" component={'span'}>
+            Allumage de lumiére {'    '}
+          </Typography>
+          <Typography variant="subtitle1" component={'span'}>
+            {formik?.values.lightOn &&
+              `${formik?.values?.lightOn?.getHours().toString().padStart(2, '0')}:${formik?.values.lightOn
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}`}
+          </Typography>
+        </DialogTitle>
+        <Divider />
+        <TimeClock
+          value={formik?.values.lightOn}
           orientation="landscape"
           name="lightOn"
           showViewSwitcher
-          componentsProps={{ actionBar: { actions: [] } }}
-          slots={{
-            toolbar: CustomToolbar
-          }}
-          onChange={(e) => setLightOn(e)}
+          ampm={false}
+          onChange={(e) => formik?.setFieldValue('lightOn', e)}
         />
+        <Divider />
+
         <DialogActions>
-          <Button disabled={!lightOn} onClick={handleClose}>
+          <Button
+            size="small"
+            variant="outlined"
+            color="error"
+            sx={{
+              color: theme.palette.error.dark,
+              borderColor: theme.palette.error.main
+            }}
+            onClick={() => {
+              handleClose();
+              formik?.setFieldValue('lightOn', null);
+            }}
+          >
+            Annuler
+          </Button>
+          <Button
+            size="small"
+            variant="contained"
+            disabled={!formik?.values.lightOn}
+            onClick={() => {
+              handleClose();
+            }}
+          >
             Ok
           </Button>
         </DialogActions>
@@ -61,9 +90,10 @@ export default function LightOn() {
   );
 }
 
-export function LightOff() {
+export function LightOff({ formik }) {
   const [open, setOpen] = React.useState(false);
-  const [lightOff, setLightOff] = React.useState('');
+  const theme = useTheme();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -71,43 +101,75 @@ export function LightOff() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function CustomToolbar(props) {
-    const { classes, theme, date, isLandscape, openView, setOpenView, onCancel, onAccept, ...other } = props;
-    return (
-      <Box
-        // Pass the className to the root element to get correct layout
-        className={props.className}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-      >
-        <TimePickerToolbar {...other} ampm={false} date={date} isLandscape={isLandscape} openView={openView} setOpenView={setOpenView} />
-      </Box>
-    );
-  }
-
   return (
     <React.Fragment>
       <Chip
         size="small"
-        label="Extinction de lumière"
+        label="Extinction de lumiére"
         color="error"
+        sx={{
+          color: theme.palette.error.dark,
+          borderColor: theme.palette.error.main
+        }}
         variant="outlined"
         onClick={handleClickOpen}
         icon={<ClockCircleFilled />}
       />
       <Dialog open={open} onClose={handleClose}>
-        <StaticTimePicker
-          orientation="landscape"
-          name="lightOn"
-          showViewSwitcher
-          componentsProps={{ actionBar: { actions: [] } }}
-          slots={{
-            toolbar: CustomToolbar
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: 1.5
           }}
-          onChange={(e) => setLightOff(e)}
+        >
+          <Typography variant="caption" component={'span'}>
+            Extinction de lumiére {'    '}
+          </Typography>
+          <Typography variant="subtitle1" component={'span'}>
+            {formik?.values.lightOff &&
+              `${formik?.values.lightOff.getHours().toString().padStart(2, '0')}:${formik?.values.lightOff
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}`}
+          </Typography>
+        </DialogTitle>
+        <Divider />
+        <TimeClock
+          value={formik?.values.lightOff}
+          orientation="landscape"
+          name="lightOff"
+          showViewSwitcher
+          ampm={false}
+          onChange={(e) => {
+            formik?.setFieldValue('lightOff', e);
+          }}
         />
+        <Divider />
         <DialogActions>
-          <Button disabled={!lightOff} onClick={handleClose}>
+          <Button
+            size="small"
+            variant="outlined"
+            color="error"
+            sx={{
+              color: theme.palette.error.dark,
+              borderColor: theme.palette.error.main
+            }}
+            onClick={() => {
+              handleClose();
+              formik?.setFieldValue('lightOff', null);
+            }}
+          >
+            Annuler
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            disabled={!formik?.values.lightOff}
+            onClick={() => {
+              handleClose();
+            }}
+          >
             Ok
           </Button>
         </DialogActions>
@@ -115,9 +177,11 @@ export function LightOff() {
     </React.Fragment>
   );
 }
-export function LightDure() {
+
+export function LightDure({ formik }) {
   const [open, setOpen] = React.useState(false);
-  const [lightDure, setLightDure] = React.useState('');
+  const theme = useTheme();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -126,42 +190,71 @@ export function LightDure() {
     setOpen(false);
   };
 
-  function CustomToolbar(props) {
-    const { classes, theme, date, isLandscape, openView, setOpenView, onCancel, onAccept, ...other } = props;
-    return (
-      <Box
-        // Pass the className to the root element to get correct layout
-        className={props.className}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-      >
-        <TimePickerToolbar {...other} ampm={false} date={date} isLandscape={isLandscape} openView={openView} setOpenView={setOpenView} />
-      </Box>
-    );
-  }
-
   return (
     <React.Fragment>
       <Chip
         size="small"
-        label="Durée de lumière"
+        label="Durée de lumiére"
         color="warning"
         variant="outlined"
         onClick={handleClickOpen}
         icon={<ClockCircleFilled />}
       />
       <Dialog open={open} onClose={handleClose}>
-        <StaticTimePicker
-          orientation="landscape"
-          name="lightOn"
-          showViewSwitcher
-          componentsProps={{ actionBar: { actions: [] } }}
-          slots={{
-            toolbar: CustomToolbar
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: 1.5
           }}
-          onChange={(e) => setLightDure(e)}
+        >
+          <Typography variant="caption" component={'span'}>
+            Durée de lumiére {'    '}
+          </Typography>
+          <Typography variant="subtitle1" component={'span'}>
+            {formik?.values.lightDuration &&
+              `${formik?.values.lightDuration.getHours().toString().padStart(2, '0')}:${formik?.values.lightDuration
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}`}
+          </Typography>
+        </DialogTitle>
+        <Divider />
+        <TimeClock
+          value={formik?.values.lightDuration}
+          orientation="landscape"
+          name="lightDuration"
+          showViewSwitcher
+          ampm={false}
+          onChange={(e) => {
+            formik?.setFieldValue('lightDuration', e);
+          }}
         />
+        <Divider />
         <DialogActions>
-          <Button disabled={!lightDure} onClick={handleClose}>
+          <Button
+            size="small"
+            variant="outlined"
+            color="error"
+            sx={{
+              color: theme.palette.error.dark,
+              borderColor: theme.palette.error.main
+            }}
+            onClick={() => {
+              handleClose();
+              formik?.setFieldValue('lightDuration', null);
+            }}
+          >
+            Annuler
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            disabled={!formik?.values.lightDuration}
+            onClick={() => {
+              handleClose();
+            }}
+          >
             Ok
           </Button>
         </DialogActions>
@@ -169,9 +262,11 @@ export function LightDure() {
     </React.Fragment>
   );
 }
-export function FlashOn() {
+
+export function FlashOn({ formik }) {
   const [open, setOpen] = React.useState(false);
-  const [flashOn, setFlashOn] = React.useState('');
+  const theme = useTheme();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -179,36 +274,65 @@ export function FlashOn() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function CustomToolbar(props) {
-    const { classes, theme, date, isLandscape, openView, setOpenView, onCancel, onAccept, ...other } = props;
-    return (
-      <Box
-        // Pass the className to the root element to get correct layout
-        className={props.className}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-      >
-        <TimePickerToolbar {...other} ampm={false} date={date} isLandscape={isLandscape} openView={openView} setOpenView={setOpenView} />
-      </Box>
-    );
-  }
 
   return (
     <React.Fragment>
       <Chip size="small" label="Allumage de flash" color="info" variant="outlined" onClick={handleClickOpen} icon={<ClockCircleFilled />} />
       <Dialog open={open} onClose={handleClose}>
-        <StaticTimePicker
-          orientation="landscape"
-          name="lightOn"
-          showViewSwitcher
-          componentsProps={{ actionBar: { actions: [] } }}
-          slots={{
-            toolbar: CustomToolbar
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: 1.5
           }}
-          onChange={(e) => setFlashOn(e)}
+        >
+          <Typography variant="caption" component={'span'}>
+            Allumage de flash {'    '}
+          </Typography>
+          <Typography variant="subtitle1" component={'span'}>
+            {formik?.values.flashOn &&
+              `${formik?.values.flashOn.getHours().toString().padStart(2, '0')}:${formik?.values.flashOn
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}`}
+          </Typography>
+        </DialogTitle>
+        <Divider />
+        <TimeClock
+          value={formik?.values.flashOn}
+          orientation="landscape"
+          name="flashOn"
+          showViewSwitcher
+          ampm={false}
+          onChange={(e) => {
+            formik?.setFieldValue('flashOn', e);
+          }}
         />
+        <Divider />
         <DialogActions>
-          <Button disabled={!flashOn} onClick={handleClose}>
+          <Button
+            size="small"
+            variant="outlined"
+            color="error"
+            sx={{
+              color: theme.palette.error.dark,
+              borderColor: theme.palette.error.main
+            }}
+            onClick={() => {
+              handleClose();
+              formik?.setFieldValue('flashOn', null);
+            }}
+          >
+            Annuler
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            disabled={!formik?.values.flashOn}
+            onClick={() => {
+              handleClose();
+            }}
+          >
             Ok
           </Button>
         </DialogActions>
@@ -216,9 +340,11 @@ export function FlashOn() {
     </React.Fragment>
   );
 }
-export function FlashOff() {
+
+export function FlashOff({ formik }) {
   const [open, setOpen] = React.useState(false);
-  const [flashOff, setFlashOff] = React.useState('');
+  const theme = useTheme();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -226,19 +352,6 @@ export function FlashOff() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function CustomToolbar(props) {
-    const { classes, theme, date, isLandscape, openView, setOpenView, onCancel, onAccept, ...other } = props;
-    return (
-      <Box
-        // Pass the className to the root element to get correct layout
-        className={props.className}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-      >
-        <TimePickerToolbar {...other} ampm={false} date={date} isLandscape={isLandscape} openView={openView} setOpenView={setOpenView} />
-      </Box>
-    );
-  }
 
   return (
     <React.Fragment>
@@ -246,23 +359,69 @@ export function FlashOff() {
         size="small"
         label="Extinction de flash"
         color="error"
+        sx={{
+          color: theme.palette.error.dark,
+          borderColor: theme.palette.error.main
+        }}
         variant="outlined"
         onClick={handleClickOpen}
         icon={<ClockCircleFilled />}
       />
       <Dialog open={open} onClose={handleClose}>
-        <StaticTimePicker
-          orientation="landscape"
-          name="lightOn"
-          showViewSwitcher
-          componentsProps={{ actionBar: { actions: [] } }}
-          slots={{
-            toolbar: CustomToolbar
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: 1.5
           }}
-          onChange={(e) => setFlashOff(e)}
+        >
+          <Typography variant="caption" component={'span'}>
+            Extinction de flash {'    '}
+          </Typography>
+          <Typography variant="subtitle1" component={'span'}>
+            {formik?.values.flashOff &&
+              `${formik?.values.flashOff.getHours().toString().padStart(2, '0')}:${formik?.values.flashOff
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}`}
+          </Typography>
+        </DialogTitle>
+        <Divider />
+        <TimeClock
+          value={formik?.values.flashOff}
+          orientation="landscape"
+          name="flashOff"
+          showViewSwitcher
+          ampm={false}
+          onChange={(e) => {
+            formik?.setFieldValue('flashOff', e);
+          }}
         />
+        <Divider />
         <DialogActions>
-          <Button disabled={!flashOff} onClick={handleClose}>
+          <Button
+            size="small"
+            variant="outlined"
+            color="error"
+            sx={{
+              color: theme.palette.error.dark,
+              borderColor: theme.palette.error.main
+            }}
+            onClick={() => {
+              handleClose();
+              formik?.setFieldValue('flashOn', null);
+            }}
+          >
+            Annuler
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            disabled={!formik?.values.flashOn}
+            onClick={() => {
+              handleClose();
+            }}
+          >
             Ok
           </Button>
         </DialogActions>
@@ -270,9 +429,11 @@ export function FlashOff() {
     </React.Fragment>
   );
 }
-export function FlashDure() {
+
+export function FlashDure({ formik }) {
   const [open, setOpen] = React.useState(false);
-  const [flashDure, setFlashDure] = React.useState('');
+  const theme = useTheme();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -281,35 +442,64 @@ export function FlashDure() {
     setOpen(false);
   };
 
-  function CustomToolbar(props) {
-    const { classes, theme, date, isLandscape, openView, setOpenView, onCancel, onAccept, ...other } = props;
-    return (
-      <Box
-        // Pass the className to the root element to get correct layout
-        className={props.className}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-      >
-        <TimePickerToolbar {...other} ampm={false} date={date} isLandscape={isLandscape} openView={openView} setOpenView={setOpenView} />
-      </Box>
-    );
-  }
-
   return (
     <React.Fragment>
-      <Chip size="small" label="Durée de flash" color="warning" variant="outlined" onClick={handleClickOpen} icon={<ClockCircleFilled />} />
+      <Chip size="small" label="Duré de flash" color="warning" variant="outlined" onClick={handleClickOpen} icon={<ClockCircleFilled />} />
       <Dialog open={open} onClose={handleClose}>
-        <StaticTimePicker
-          orientation="landscape"
-          name="lightOn"
-          showViewSwitcher
-          componentsProps={{ actionBar: { actions: [] } }}
-          slots={{
-            toolbar: CustomToolbar
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: 1.5
           }}
-          onChange={(e) => setFlashDure(e)}
+        >
+          <Typography variant="caption" component={'span'}>
+            Duré de flash {'    '}
+          </Typography>
+          <Typography variant="subtitle1" component={'span'}>
+            {formik?.values?.flashDuration &&
+              `${formik?.values?.flashDuration?.getHours().toString().padStart(2, '0')}:${formik?.values.flashDuration
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}`}
+          </Typography>
+        </DialogTitle>
+        <Divider />
+        <TimeClock
+          value={formik?.values.flashDuration}
+          orientation="landscape"
+          name="flashDuration"
+          showViewSwitcher
+          ampm={false}
+          onChange={(e) => {
+            formik?.setFieldValue('flashDuration', e);
+          }}
         />
+        <Divider />
         <DialogActions>
-          <Button disabled={!flashDure} onClick={handleClose}>
+          <Button
+            size="small"
+            variant="outlined"
+            color="error"
+            sx={{
+              color: theme.palette.error.dark,
+              borderColor: theme.palette.error.main
+            }}
+            onClick={() => {
+              handleClose();
+              formik?.setFieldValue('flashDuration', null);
+            }}
+          >
+            Annuler
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            disabled={!formik?.values.flashDuration}
+            onClick={() => {
+              handleClose();
+            }}
+          >
             Ok
           </Button>
         </DialogActions>

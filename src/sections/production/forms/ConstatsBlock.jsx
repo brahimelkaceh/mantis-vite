@@ -26,8 +26,8 @@ const StyledRating = styled(Rating)({
   }
 });
 const ConstatsBlock = ({ formik }) => {
-  const [value, setValue] = useState(2);
-  const [hover, setHover] = useState(-1);
+  const [hoverShell, setHoverShell] = useState(-1);
+  const [hoverColoration, setHoverColoration] = useState(-1);
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6}>
@@ -43,17 +43,19 @@ const ConstatsBlock = ({ formik }) => {
           }}
         >
           <Rating
-            name="hover-feedback"
-            value={value}
+            value={formik?.values.qty_shell}
+            name="qty-shell"
             precision={1}
             onChange={(event, newValue) => {
-              setValue(newValue);
+              formik?.setFieldValue('qty_shell', newValue);
             }}
             onChangeActive={(event, newHover) => {
-              setHover(newHover);
+              setHoverShell(newHover);
             }}
           />
-          {value !== null && <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>}
+          {formik?.values.qty_shell !== null && (
+            <Box sx={{ ml: 2 }}>{labels[hoverShell !== -1 ? hoverShell : formik?.values.qty_shell]}</Box>
+          )}
         </Box>
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -69,19 +71,21 @@ const ConstatsBlock = ({ formik }) => {
           }}
         >
           <StyledRating
-            name="hover-feedback"
-            value={value}
+            name="coloration"
+            value={formik?.values.coloration}
             precision={1}
             onChange={(event, newValue) => {
-              setValue(newValue);
+              formik?.setFieldValue('coloration', newValue);
             }}
             onChangeActive={(event, newHover) => {
-              setHover(newHover);
+              setHoverColoration(newHover);
             }}
             icon={<Egg fontSize="inherit" />}
             emptyIcon={<EggOutlined fontSize="inherit" />}
           />
-          {value !== null && <Box sx={{ ml: 2 }}>{colors[hover !== -1 ? hover : value]}</Box>}
+          {formik?.values.coloration !== null && (
+            <Box sx={{ ml: 2 }}>{colors[hoverColoration !== -1 ? hoverColoration : formik?.values.coloration]}</Box>
+          )}
         </Box>
       </Grid>
       <Grid item xs={12}>
@@ -93,10 +97,10 @@ const ConstatsBlock = ({ formik }) => {
             multiline
             rows={4}
             fullWidth
-            value={formik.values.observation}
-            onChange={formik.handleChange}
-            error={formik.touched.observation && Boolean(formik.errors.observation)}
-            helperText={formik.touched.observation && formik.errors.observation}
+            value={formik?.values.observation}
+            onChange={formik?.handleChange}
+            error={formik?.touched.observation && Boolean(formik?.errors.observation)}
+            helperText={formik?.touched.observation && formik?.errors.observation}
           />
         </Stack>
       </Grid>

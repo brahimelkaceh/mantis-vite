@@ -11,11 +11,11 @@ const ReformeBlock = ({ formik }) => {
             fullWidth
             label="Sujets normaux"
             name="hensReformed"
-            value={formik.values.hensReformed}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.errors.hensReformed && Boolean(formik.errors.hensReformed)}
-            helperText={formik.touched.hensReformed && formik.errors.hensReformed}
+            value={formik?.values?.hensReformed}
+            onChange={formik?.handleChange}
+            onBlur={formik?.handleBlur}
+            error={formik?.errors.hensReformed && Boolean(formik?.errors.hensReformed)}
+            helperText={formik?.touched.hensReformed && formik?.errors.hensReformed}
           />
         </Stack>
       </Grid>
@@ -25,11 +25,11 @@ const ReformeBlock = ({ formik }) => {
             fullWidth
             label="Prix unitaire"
             name="price"
-            value={formik.values.price}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.errors.price && Boolean(formik.errors.price)}
-            helperText={formik.touched.price && formik.errors.price}
+            value={formik?.values?.price}
+            onChange={formik?.handleChange}
+            onBlur={formik?.handleBlur}
+            error={formik?.errors.price && Boolean(formik?.errors.price)}
+            helperText={formik?.touched.price && formik?.errors.price}
           />
         </Stack>
       </Grid>
@@ -38,11 +38,11 @@ const ReformeBlock = ({ formik }) => {
           fullWidth
           label="Sujets gratuits"
           name="hensReformedFree"
-          value={formik.values.hensReformedFree}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.errors.hensReformedFree && Boolean(formik.errors.hensReformedFree)}
-          helperText={formik.touched.hensReformedFree && formik.errors.hensReformedFree}
+          value={formik?.values?.hensReformedFree}
+          onChange={formik?.handleChange}
+          onBlur={formik?.handleBlur}
+          error={formik?.errors.hensReformedFree && Boolean(formik?.errors.hensReformedFree)}
+          helperText={formik?.touched.hensReformedFree && formik?.errors.hensReformedFree}
         />
       </Grid>
       <Grid item xs={6}>
@@ -50,17 +50,19 @@ const ReformeBlock = ({ formik }) => {
           fullWidth
           label="Sujets triage"
           name="hensReformedTriage"
-          value={formik.values.hensReformedTriage}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.errors.hensReformedTriage && Boolean(formik.errors.hensReformedTriage)}
-          helperText={formik.touched.hensReformedTriage && formik.errors.hensReformedTriage}
+          value={formik?.values?.hensReformedTriage}
+          onChange={formik?.handleChange}
+          onBlur={formik?.handleBlur}
+          error={formik?.errors.hensReformedTriage && Boolean(formik?.errors.hensReformedTriage)}
+          helperText={formik?.touched.hensReformedTriage && formik?.errors.hensReformedTriage}
         />
       </Grid>
 
       <Grid item xs={12}>
         <FormControlLabel
-          control={<Switch name="isKg" checked={formik?.values?.isKg ? true : false} onChange={(e) => formik?.handleChange(e)} />}
+          control={
+            <Switch size="small" name="isKg" checked={formik?.values?.isKg ? true : false} onChange={(e) => formik?.handleChange(e)} />
+          }
           label={formik?.values?.isKg ? 'Kg' : 'Sujet'}
         />
       </Grid>

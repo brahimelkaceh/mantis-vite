@@ -46,11 +46,11 @@ export const tableHeaders = [
         title: 'Viabilité(%)'
       },
       {
-        key: 'mort_sem',
+        key: 'cent_mort_sem',
         title: 'Mort (%)'
       },
       {
-        key: 'mort_cuml',
+        key: 'cent_mort_cuml',
         title: '∑ mort (%)'
       }
     ]
@@ -65,7 +65,7 @@ export const tableHeaders = [
       { key: 'aps', title: 'APS(g)' },
       { key: 'alt_cuml', title: '∑ APS(kg)' },
       { key: 'ratio', title: 'Ratio E/A' },
-      { key: 'ref', title: 'Réf.Alt' }
+      { key: 'formule_ep', title: 'Réf.Alt' }
     ]
   },
   {
@@ -73,13 +73,13 @@ export const tableHeaders = [
     class: 'production',
     children: [
       { key: 'ponte', title: 'Ponte' },
-      { key: 'ponte_percentage', title: 'Ponte (%)' },
+      { key: 'ponte_cent', title: 'Ponte (%)' },
       { key: 'pmo', title: 'PMO (g)', 'data-title': "Poid moyen d'œuf (g)" },
       { key: 'noppp', title: 'NOPPP', 'data-title': "Nombre d'œuf par poule présente" },
-      { key: 'noppp_cumulative', title: '∑ NOPPP', 'data-title': "Nombre d'œuf par poule présente cumulée" },
+      { key: 'noppp_cuml_sem', title: '∑ NOPPP', 'data-title': "Nombre d'œuf par poule présente cumulée" },
       { key: 'noppd', title: 'NOPPD', 'data-title': "Nombre d'œuf par poule départ", class: 'border-right' },
-      { key: 'noppd_cumulative', title: '∑ NOPPD', 'data-title': "Nombre d'œuf par poule départ cumulé" },
-      { key: 'declasse', title: 'Déclasse', class: 'border-right' }
+      { key: 'noppd_cuml_sem', title: '∑ NOPPD', 'data-title': "Nombre d'œuf par poule départ cumulé" },
+      { key: 'declassed', title: 'Déclasse', class: 'border-right' }
     ]
   },
   {
@@ -87,23 +87,23 @@ export const tableHeaders = [
     class: 'mass-oeuf',
     children: [
       {
-        key: 'moppp_sem',
+        key: 'mass_oeuf_pp',
         title: 'MOPPP/sem (g)',
         'data-title': "masse d'œuf par poule présente par semaine (g)"
       },
       {
-        key: 'moppp_cumulative',
+        key: 'mass_oeuf_sem_pp',
         title: '∑ MOPPP (kg)',
         'data-title': "masse d'œuf par poule présente cumulé (kg)"
       },
       {
-        key: 'moppd_sem',
+        key: 'mass_oeuf_pd',
         title: 'MOPPD/sem (g)',
         'data-title': "masse d'œuf par poule départ par semaine(g)",
         class: 'border-right'
       },
       {
-        key: 'moppd_cumulative',
+        key: 'mass_oeuf_sem_pd',
         title: '∑ MOPPD (kg)',
         'data-title': "masse d'œuf par poule départ cumulé(kg)",
         class: 'border-right'
@@ -114,9 +114,9 @@ export const tableHeaders = [
     parent: 'Indice de conversion',
     class: 'ic-header',
     children: [
-      { key: 'ic', title: 'IC' },
-      { key: 'apo', title: 'APO (g)' },
-      { key: 'apo_cuml', title: '∑ APO (g)' }
+      { key: 'ic_cuml', title: 'IC' },
+      { key: 'alt_oeuf', title: 'APO (g)' },
+      { key: 'alt_oeuf_cuml', title: '∑ APO (g)' }
     ]
   }
   // Prophylaxie

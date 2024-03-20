@@ -1,52 +1,14 @@
-// material-ui
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  Grid,
-  InputLabel,
-  Select,
-  Stack,
-  MenuItem,
-  ListItem,
-  ListItemText,
-  Typography,
-  Divider,
-  useTheme,
-  useMediaQuery
-} from '@mui/material';
-
-// project imports
-import MainCard from 'components/MainCard';
-import AnimateButton from 'components/@extended/AnimateButton';
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import ChartOptions from './chart-options';
+import api from 'api/production';
 import { openSnackbar } from 'api/snackbar';
 
-// third-party
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import LoadingButton from 'components/@extended/LoadingButton';
-import { HomeFilled } from '@ant-design/icons';
-import { ArrowRightIcon } from '@mui/x-date-pickers';
-import { useEffect, useState } from 'react';
-import api from 'api/production';
-
-/**
- * 'Enter your age'
- * yup.number Expected 0 arguments, but got 1 */
-const validationSchema = yup.object({
-  age: yup.number().required('Age selection is required.')
-});
-
-// ==============================|| FORM VALIDATION - LOGIN FORMIK ||============================== //
-// get-prod-table-data/
-const PreferencePanel = ({ fetchBilanPartialData, fetchPerformanceTable }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+const ChartSelectHeader = ({ setTitle, checkboxItems, setChartName, chartName, setLotId, lotId }) => {
+  const [lots, setLots] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sites, setSites] = useState([]);
   const [siteId, setSiteId] = useState('');
-  const [lots, setLots] = useState([]);
-  const [lotId, setLotId] = useState('');
 
   const fetchProdSite = async () => {
     try {
@@ -54,7 +16,6 @@ const PreferencePanel = ({ fetchBilanPartialData, fetchPerformanceTable }) => {
       const result = await api.getProdSites();
       if (result.status === 200) {
         setSites(result?.data);
-        console.log(result.data);
       }
     } catch (error) {
       openSnackbar({
@@ -70,6 +31,7 @@ const PreferencePanel = ({ fetchBilanPartialData, fetchPerformanceTable }) => {
       setLoading(false);
     }
   };
+
   const fetchLotData = async (id) => {
     try {
       setLoading(true);
@@ -95,8 +57,12 @@ const PreferencePanel = ({ fetchBilanPartialData, fetchPerformanceTable }) => {
   useEffect(() => {
     fetchProdSite();
   }, []);
+  const filterTitles = (id) => {
+    const filterTitle = lots?.filter((title) => title.id === id);
+    setTitle(filterTitle[0].code);
+  };
   return (
-    <Grid container spacing={2} alignItems={'end'}>
+    <Grid container spacing={1} mb={1} alignItems={'center'}>
       <Grid item xs={12} md={6} lg={3.5}>
         <FormControl variant="outlined" fullWidth controlled>
           <InputLabel id="demo-simple-select-standard-label">{loading ? 'Chargement...' : 'Sélectionnez un Site'}</InputLabel>
@@ -128,12 +94,12 @@ const PreferencePanel = ({ fetchBilanPartialData, fetchPerformanceTable }) => {
           <InputLabel id="demo-simple-select-standard-label">Sélectionnez un LOT</InputLabel>
           <Select
             labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
             value={lotId ?? ' '}
             disabled={loading}
             onChange={(event) => {
               setLotId(event.target.value);
-              fetchBilanPartialData(event.target.value);
-              fetchPerformanceTable(event.target.value);
+              filterTitles(event.target.value);
             }}
             label="Age"
           >
@@ -149,8 +115,22 @@ const PreferencePanel = ({ fetchBilanPartialData, fetchPerformanceTable }) => {
           </Select>
         </FormControl>
       </Grid>
+
+      <Grid item xs={12} lg={4}>
+        <ChartOptions chartName={chartName} setChartName={setChartName} checkboxItems={checkboxItems} />
+      </Grid>
+      <Grid item xs={12} md={1}>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            setChartName([]);
+          }}
+        >
+          réinitialiser
+        </Button>
+      </Grid>
     </Grid>
   );
 };
 
-export default PreferencePanel;
+export default ChartSelectHeader;

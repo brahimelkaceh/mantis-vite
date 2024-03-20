@@ -2,16 +2,19 @@ import { DownloadOutlined, EditFilled, MenuOutlined, PlusCircleOutlined } from '
 import { Chip, Grid, IconButton, Stack, TableBody, TableCell, TableHead, TableRow, Tooltip, Typography, useTheme } from '@mui/material';
 import { blue } from '@mui/material/colors';
 import LoadingButton from 'components/@extended/LoadingButton';
-import React from 'react';
+import React, { useState } from 'react';
 import EditModal from './edit-modal';
 import DetailsModal from './details-modal';
 import RowTable from './table-row';
+import DeleteModal from './delete-modal';
+import { Download } from '@mui/icons-material';
 
-const TableList = ({ tableHeaders, visibleChildren }) => {
+const TableList = ({ row, tableHeaders, visibleChildren, fetchPerformanceTable }) => {
   const theme = useTheme();
+
   return (
     <TableBody>
-      <TableRow
+      {/* <TableRow
         sx={{
           '& .MuiTableCell-root': {
             whiteSpace: 'nowrap'
@@ -22,18 +25,19 @@ const TableList = ({ tableHeaders, visibleChildren }) => {
             borderTop: `1px solid ${theme.palette.divider}`,
             borderLeft: `1px solid ${theme.palette.grey[400]} !important`,
             borderBottom: `2px solid ${theme.palette.grey[500]} !important`,
-            fontSize: 12,
+            fontSize: 14,
             textAlign: 'center'
           }
         }}
       >
         <TableCell>
           <Stack flexDirection={'row'} alignItems={'end'} gap={1}>
-            <LoadingButton size="small" color="success" variant="outlined" shape="square">
-              <DownloadOutlined />
+            <LoadingButton size="small" color="success" variant="contained" shape="square">
+              <Download />
             </LoadingButton>{' '}
             <DetailsModal />
             <EditModal />
+            <DeleteModal />
           </Stack>
         </TableCell>
         <TableCell>05/2023</TableCell>
@@ -109,26 +113,70 @@ const TableList = ({ tableHeaders, visibleChildren }) => {
         <TableCell>
           <Tooltip title={<Typography>Guide: 80%</Typography>}>
             <Typography>80%</Typography>
-            <Chip variant="outlined" color={'success'} label={`${82}%`} size="small" />
+            <Chip
+              variant="outlined"
+              color={'success'}
+              label={`${82}%`}
+              size="small"
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 1914</Typography>}>
             <Typography>1922</Typography>
-            <Chip variant="outlined" color={'success'} label={`+${50}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'success'}
+              label={`+${50}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
-        <TableCell>74.2%</TableCell>
+        <TableCell>74.2</TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 0.1%</Typography>}>
             <Typography>0.14</Typography>
-            <Chip variant="outlined" color={'error'} label={`+${0.02}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`+${0.02}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 4.1%</Typography>}>
             <Typography>5.02</Typography>
-            <Chip variant="outlined" color={'warning'} label={`${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'warning'}
+              label={`${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>168.2</TableCell>
@@ -137,110 +185,306 @@ const TableList = ({ tableHeaders, visibleChildren }) => {
         <TableCell>
           <Tooltip title={<Typography>Guide: 110</Typography>}>
             <Typography>102</Typography>
-            <Chip variant="outlined" color={'success'} label={`-${8}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'success'}
+              label={`-${8}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 29.5</Typography>}>
             <Typography>30</Typography>
-            <Chip variant="outlined" color={'error'} label={`+${0.5}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`+${0.5}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: --</Typography>}>
             <Typography>1.2</Typography>
-            <Chip variant="outlined" color={'info'} label={`--`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'info'}
+              label={`--`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>PDP</TableCell>
         <TableCell>
           <Typography>125 000</Typography>
-          <Chip variant="filled" color={'success'} label={`168 000`} size="small" />
+          <Chip
+            sx={{
+              fontSize: 12,
+              '& span': {
+                padding: 0.5
+              }
+            }}
+            variant="filled"
+            color={'success'}
+            label={`168 000`}
+            size="small"
+          />
         </TableCell>{' '}
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Typography>7.42</Typography>
-          <Chip label={`-${2.58}%`} size="small" />
+          <Chip
+            sx={{
+              fontSize: 12,
+              '& span': {
+                padding: 0.5
+              }
+            }}
+            label={`-${2.58}%`}
+            size="small"
+          />
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
         <TableCell>
           <Tooltip title={<Typography>Guide: 8.9%</Typography>}>
             <Typography>7.42%</Typography>
-            <Chip variant="outlined" color={'error'} label={`-${2.58}`} size="small" />
+            <Chip
+              sx={{
+                fontSize: 12,
+                '& span': {
+                  padding: 0.5
+                }
+              }}
+              variant="outlined"
+              color={'error'}
+              label={`-${2.58}`}
+              size="small"
+            />
           </Tooltip>
         </TableCell>
-      </TableRow>
-      <RowTable tableHeaders={tableHeaders} visibleChildren={visibleChildren} />
+      </TableRow> */}
+      <RowTable row={row} tableHeaders={tableHeaders} visibleChildren={visibleChildren} fetchPerformanceTable={fetchPerformanceTable} />
     </TableBody>
   );
 };

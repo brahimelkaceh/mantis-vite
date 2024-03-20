@@ -18,7 +18,7 @@ import api from 'api/production';
 import { openSnackbar } from 'api/snackbar';
 import { useEffect, useState } from 'react';
 
-const SelectedComponents = () => {
+const SelectedComponents = ({ setLastRep, setBatimentId }) => {
   const [sites, setSites] = useState([]);
   const [lots, setLots] = useState([]);
   const [lotId, setLotId] = useState('');
@@ -54,11 +54,9 @@ const SelectedComponents = () => {
     try {
       setLoading(true);
       const result = await api.getLotTitles(id);
-      console.log('result', result);
       if (result.status === 200) {
         setLots(result.data);
         setLoading(false);
-        console.log('lots , ', result);
       }
     } catch (error) {
       openSnackbar({
@@ -75,15 +73,15 @@ const SelectedComponents = () => {
     }
   };
   const fetchNextSendData = async (id) => {
-    console.log(id);
     try {
       setLoading(true);
       const result = await api.getProudNext(id);
-      console.log('result', result);
       if (result.status === 200) {
         setNextSendData(result.data);
         setLoading(false);
-        console.log('next send : ', result);
+        // console.log('next send : ', result?.data.lotId);
+        setBatimentId(result?.data.lotId);
+        setLastRep(result?.data?.last_rep);
       }
     } catch (error) {
       openSnackbar({

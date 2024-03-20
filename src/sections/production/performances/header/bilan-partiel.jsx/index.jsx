@@ -1,16 +1,18 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Grid, Typography, useTheme } from '@mui/material';
-import React from 'react';
+import { Accordion, AccordionDetails, AccordionSummary, Box, CircularProgress, Divider, Grid, Typography, useTheme } from '@mui/material';
+import React, { useState } from 'react';
 import LotIdentification from './lot-identification';
 import LastWeek from './last-week';
 import BilanGlobal from './bilan';
 
-const BilanPArtiel = () => {
+const BilanPArtiel = ({ data, loading, expanded, setExpanded }) => {
   const theme = useTheme();
+
   return (
     <Box
       sx={{
         '& .MuiAccordion-root': {
           borderColor: theme.palette.divider,
+          borderRadius: 1,
           '& .MuiAccordionSummary-root': {
             bgcolor: 'transparent',
             flexDirection: 'row',
@@ -27,22 +29,26 @@ const BilanPArtiel = () => {
         }
       }}
     >
-      <Accordion defaultExpanded>
+      <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography variant="h6">Un titre</Typography>
+          <Typography variant="h5" fontWeight={'bold'}>
+            Bilan partiel {loading && <CircularProgress color="inherit" size={18} />}
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
-              <LotIdentification />
+          {data && (
+            <Grid container spacing={2} justifyContent={'end'}>
+              <Grid item md={6} xs={12}>
+                <LotIdentification data={data} />
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <LastWeek data={data.week_data} />
+              </Grid>
+              <Grid item xs={12}>
+                <BilanGlobal data={data} />
+              </Grid>{' '}
             </Grid>
-            <Grid item md={6} xs={12}>
-              <LastWeek />
-            </Grid>
-            <Grid item xs={12}>
-              <BilanGlobal />
-            </Grid>{' '}
-          </Grid>
+          )}
         </AccordionDetails>
       </Accordion>
     </Box>

@@ -11,11 +11,11 @@ const ViabiliteBlock = ({ formik }) => {
             id="mort"
             name="mort"
             label="Mortalité (Sujet)"
-            value={formik.values.mort}
-            onChange={formik.handleChange}
-            error={formik.touched.mort && Boolean(formik.errors.mort)}
-            onBlur={formik.handleBlur}
-            helperText={formik.touched.mort && formik.errors.mort}
+            value={formik?.values.mort}
+            onChange={formik?.handleChange}
+            error={formik?.touched.mort && Boolean(formik?.errors.mort)}
+            onBlur={formik?.handleBlur}
+            helperText={formik?.touched.mort && formik?.errors.mort}
             fullWidth
           />
         </Stack>
@@ -27,11 +27,11 @@ const ViabiliteBlock = ({ formik }) => {
             name="hensEliminated"
             label="Triage (Sujet)"
             fullWidth
-            value={formik.values.hensEliminated}
-            onChange={formik.handleChange}
-            error={formik.touched.hensEliminated && Boolean(formik.errors.hensEliminated)}
-            onBlur={formik.handleBlur}
-            helperText={formik.touched.hensEliminated && formik.errors.hensEliminated}
+            value={formik?.values.hensEliminated}
+            onChange={formik?.handleChange}
+            error={formik?.touched.hensEliminated && Boolean(formik?.errors.hensEliminated)}
+            onBlur={formik?.handleBlur}
+            helperText={formik?.touched.hensEliminated && formik?.errors.hensEliminated}
           />
         </Stack>
       </Grid>
@@ -42,11 +42,11 @@ const ViabiliteBlock = ({ formik }) => {
             name="poidVif"
             label="Poids corporel (g)"
             fullWidth
-            value={formik.values.poidVif}
-            onChange={formik.handleChange}
-            error={formik.touched.poidVif && Boolean(formik.errors.poidVif)}
-            onBlur={formik.handleBlur}
-            helperText={formik.touched.poidVif && formik.errors.poidVif}
+            value={formik?.values.poidVif}
+            onChange={formik?.handleChange}
+            error={formik?.touched.poidVif && Boolean(formik?.errors.poidVif)}
+            onBlur={formik?.handleBlur}
+            helperText={formik?.touched.poidVif && formik?.errors.poidVif}
           />
         </Stack>
       </Grid>
@@ -57,11 +57,11 @@ const ViabiliteBlock = ({ formik }) => {
             name="homog"
             label="Homogeneité (%)"
             fullWidth
-            value={formik.values.homog}
-            onChange={formik.handleChange}
-            error={formik.touched.homog && Boolean(formik.errors.homog)}
-            onBlur={formik.handleBlur}
-            helperText={formik.touched.homog && formik.errors.homog}
+            value={formik?.values.homog}
+            onChange={formik?.handleChange}
+            error={formik?.touched.homog && Boolean(formik?.errors.homog)}
+            onBlur={formik?.handleBlur}
+            helperText={formik?.touched.homog && formik?.errors.homog}
           />
         </Stack>
       </Grid>

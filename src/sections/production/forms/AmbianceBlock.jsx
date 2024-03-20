@@ -28,12 +28,6 @@ function valuetext(value) {
 }
 
 const AmbianceBlock = ({ formik }) => {
-  const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} sm={12}>
@@ -42,9 +36,11 @@ const AmbianceBlock = ({ formik }) => {
             Température intérieure
           </Typography>
           <Slider
-            getAriaLabel={() => 'Temperature'}
+            getAriaLabel={() => 'Température'}
             orientation="horizontal"
-            defaultValue={[20, 37]}
+            name="temperatureInt"
+            value={formik?.values?.temperatureInt}
+            onChange={formik?.handleChange}
             marks={marks}
             getAriaValueText={valuetext}
             color="warning"
@@ -58,9 +54,11 @@ const AmbianceBlock = ({ formik }) => {
             Température extérieure
           </Typography>
           <Slider
-            getAriaLabel={() => 'Temperature'}
+            getAriaLabel={() => 'Température'}
             orientation="horizontal"
-            defaultValue={[20, 37]}
+            name="temperatureExt"
+            value={formik?.values?.temperatureExt}
+            onChange={formik?.handleChange}
             marks={marks}
             getAriaValueText={valuetext}
             color="warning"
@@ -71,50 +69,73 @@ const AmbianceBlock = ({ formik }) => {
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <LightOn />
+            <LightOn formik={formik} />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <LightOff />
+            <LightOff formik={formik} />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <LightDure />
+            <LightDure formik={formik} />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <FlashOn />
+            <FlashOn formik={formik} />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <FlashOff />
+            <FlashOff formik={formik} />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12} sm={4}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
-            <FlashDure />
+            <FlashDure formik={formik} />
           </Stack>
         </LocalizationProvider>
       </Grid>
       <Grid item xs={12}>
         <Stack flexDirection="row" gap={1} alignItems="center">
           <Chip size="small" label="Intensité" color="warning" variant="outlined" />
-          <FormControlLabel value="top" control={<Switch size="small" color="primary" />} label="%" labelPlacement="left" />
-          <Slider valueLabelDisplay="on" defaultValue={30} color="warning" />
+          <FormControlLabel
+            control={
+              <Switch
+                name="intensIsLux"
+                checked={formik?.values.intensIsLux}
+                onChange={(e) => {
+                  formik?.setFieldValue('intensIsLux', e.target.checked);
+                }}
+                size="small"
+                color="primary"
+              />
+            }
+            label={formik?.values.intensIsLux ? 'lux ' : '%'}
+            labelPlacement="left"
+          />
+          <Slider
+            valueLabelDisplay="on"
+            name="intensite"
+            value={formik?.values?.intensite}
+            color="warning"
+            onChange={(e) => {
+              formik?.setFieldValue('intensite', e.target.value);
+            }}
+            max={formik?.values.intensIsLux ? 44 : 100}
+          />
         </Stack>
       </Grid>
     </Grid>

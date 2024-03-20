@@ -1,5 +1,5 @@
 import { DownOutlined, RightOutlined, StopOutlined } from '@ant-design/icons';
-import { Card, Grid, IconButton, Table, TableContainer, useTheme } from '@mui/material';
+import { Card, Grid, IconButton, LinearProgress, Table, TableContainer, useTheme } from '@mui/material';
 import LinearWithLabel from 'components/@extended/progress/LinearWithLabel';
 import MainCard from 'components/MainCard';
 import makeData from 'data/react-table';
@@ -10,7 +10,7 @@ import { tableHeaders } from './components/table-headers';
 import { useState } from 'react';
 import '../../style.css';
 import TableList from './components/table-body';
-const ProductionPerformanceTable = () => {
+const ProductionPerformanceTable = ({ data, loading, fetchPerformanceTable }) => {
   const [visibleChildren, setVisibleChildren] = useState(
     tableHeaders.reduce((acc, curr) => {
       acc[curr.parent] = curr.children.map((child) => child.key);
@@ -41,6 +41,7 @@ const ProductionPerformanceTable = () => {
   return (
     <Grid item xs={12}>
       <MainCard>
+        {loading && <LinearProgress />}
         <ChooseColumn
           tableHeaders={tableHeaders}
           handleToggleVisibility={handleToggleVisibility}
@@ -50,7 +51,18 @@ const ProductionPerformanceTable = () => {
         <TableContainer sx={{ maxHeight: 450 }}>
           <Table>
             <TableHeader tableHeaders={tableHeaders} visibleChildren={visibleChildren} />
-            <TableList tableHeaders={tableHeaders} visibleChildren={visibleChildren} />
+            {data &&
+              data?.map((row, rowIndex) => {
+                return (
+                  <TableList
+                    key={rowIndex}
+                    row={row}
+                    tableHeaders={tableHeaders}
+                    visibleChildren={visibleChildren}
+                    fetchPerformanceTable={fetchPerformanceTable}
+                  />
+                );
+              })}
           </Table>
         </TableContainer>
       </MainCard>

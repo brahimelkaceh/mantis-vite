@@ -7,7 +7,7 @@ import ProductionBlock from '../forms/ProductionBlock';
 
 const FirstBox = ({ formik }) => {
   const theme = useTheme();
-  const [expanded, setExpanded] = useState('panel');
+  const [expanded, setExpanded] = useState(true);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : true);
@@ -33,7 +33,7 @@ const FirstBox = ({ formik }) => {
         }
       }}
     >
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
         <AccordionSummary className="production" aria-controls="panel1d-content" id="panel1d-header">
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Typography variant="h6">Production </Typography>

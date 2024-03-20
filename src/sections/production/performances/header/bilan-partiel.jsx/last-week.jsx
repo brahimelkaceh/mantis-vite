@@ -1,10 +1,9 @@
 import { CaretDownOutlined, CaretUpOutlined, FallOutlined, RiseOutlined } from '@ant-design/icons';
-import { Chip, Divider, Grid, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography, useTheme } from '@mui/material';
-import MainCard from 'components/MainCard';
+import { Card, Chip, Divider, Grid, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import SimpleBar from 'simplebar-react';
 
-const LastWeek = () => {
+const LastWeek = ({ data }) => {
   const theme = useTheme();
 
   const successSX = { color: theme.palette.success.main };
@@ -14,146 +13,213 @@ const LastWeek = () => {
     <Grid container spacing={1.5}>
       <Grid item xs={12}>
         <Typography color={'Highlight'} variant="h5">
-          Derniére semaine achevée:
+          Derniére semaine achevèe : {data?.age}
         </Typography>
         <Divider />
       </Grid>
       <Grid item xs={12}>
-        <MainCard content={false}>
-          <SimpleBar sx={{ height: 10 }}>
-            <List
-              aria-label="main mailbox folders"
+        <Card content={false}>
+          <List
+            aria-label="main mailbox folders"
+            sx={{
+              '& svg': {
+                width: 32,
+                my: -0.75,
+                ml: -0.75,
+                mr: 0.75
+              }
+            }}
+          >
+            <ListItemButton
               sx={{
-                '& svg': {
-                  width: 32,
-                  my: -0.75,
-                  ml: -0.75,
-                  mr: 0.75
-                }
+                cursor: 'default'
               }}
+              dense
             >
-              <ListItemButton
-                sx={{
-                  cursor: 'default'
-                }}
-                dense
-              >
-                <ListItemIcon>
-                  <CaretUpOutlined style={successSX} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Grid container justifyContent={'space-between'}>
-                      <Grid item justifyContent={'end'} xs={4}>
-                        <span>Ponte</span>
-                      </Grid>
-                      <Grid container item justifyContent={'start'} md={2} xs={1}>
-                        <Typography sx={infoSX}>45.85%</Typography>
-                      </Grid>
-                      <Grid container item justifyContent={'start'} md={2} xs={1}>
-                        <Typography sx={successSX}>+ 1.85</Typography>
-                      </Grid>
-                      <Grid container justifyContent={'end'} item xs={4}>
-                        <Chip
-                          variant="filled"
-                          color={'success'}
-                          icon={
-                            <>
-                              <RiseOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
-                            </>
-                          }
-                          label={`${0.3}%`}
-                          sx={{ ml: 0, pl: 1 }}
-                          size="small"
-                        />
-                      </Grid>
+              <ListItemIcon></ListItemIcon>
+              <ListItemText
+                primary={
+                  <Grid container justifyContent={'space-between'}>
+                    <Grid item justifyContent={'end'} xs={4}>
+                      <Typography component="span" fontWeight={'bold'}>
+                        Paramétre
+                      </Typography>
                     </Grid>
-                  }
-                />
-              </ListItemButton>
-              <Divider />
-              <ListItemButton
-                dense
-                sx={{
-                  cursor: 'default'
-                }}
-              >
-                <ListItemIcon>
-                  <CaretDownOutlined style={errorSX} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Grid container justifyContent={'space-between'}>
-                      <Grid item justifyContent={'end'} xs={4}>
-                        <span>Mortalité</span>
-                      </Grid>
-                      <Grid container item justifyContent={'start'} md={2} xs={1}>
-                        <Typography sx={infoSX}>0.42%</Typography>
-                      </Grid>
-                      <Grid container item justifyContent={'start'} md={2} xs={1}>
-                        <Typography sx={errorSX}>- 0.71</Typography>
-                      </Grid>
-                      <Grid container justifyContent={'end'} item xs={4}>
-                        <Chip
-                          variant="filled"
-                          color={'error'}
-                          icon={
-                            <>
-                              <FallOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
-                            </>
-                          }
-                          label={`${-120.3}%`}
-                          sx={{ ml: 0, pl: 1 }}
-                          size="small"
-                        />
-                      </Grid>
+                    <Grid container item justifyContent={'start'} xs={2}>
+                      <Typography component="span" fontWeight={'bold'}>
+                        Réel
+                      </Typography>{' '}
                     </Grid>
-                  }
-                />
-              </ListItemButton>
-              <Divider />
-              <ListItemButton
-                dense
-                sx={{
-                  cursor: 'default'
-                }}
-              >
-                <ListItemIcon>
-                  <CaretUpOutlined style={successSX} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Grid container justifyContent={'space-between'}>
-                      <Grid item justifyContent={'end'} xs={4}>
-                        <span>PMO</span>
-                      </Grid>
-                      <Grid container item justifyContent={'start'} md={2} xs={1}>
-                        <Typography sx={infoSX}>45.85g</Typography>
-                      </Grid>
-                      <Grid container item justifyContent={'start'} md={2} xs={1}>
-                        <Typography sx={successSX}>+ 4.25</Typography>
-                      </Grid>
-                      <Grid container justifyContent={'end'} item xs={4}>
-                        <Chip
-                          variant="filled"
-                          color={'success'}
-                          icon={
-                            <>
-                              <RiseOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
-                            </>
-                          }
-                          label={`${7.82}%`}
-                          sx={{ ml: 0, pl: 1 }}
-                          size="small"
-                        />
-                      </Grid>
+                    <Grid container item justifyContent={'start'} xs={2}>
+                      <Typography component="span" fontWeight={'bold'}>
+                        Ecart/std
+                      </Typography>{' '}
                     </Grid>
-                  }
-                />
-              </ListItemButton>
-            </List>
-          </SimpleBar>
-        </MainCard>
+                    <Grid container justifyContent={'end'} item xs={4}>
+                      <Typography component="span" fontWeight={'bold'}>
+                        % Evolution
+                      </Typography>{' '}
+                    </Grid>
+                  </Grid>
+                }
+              />
+            </ListItemButton>
+            <Divider />
+
+            <ListItemButton
+              sx={{
+                cursor: 'default'
+              }}
+              dense
+            >
+              <ListItemIcon>
+                {data?.ponte?.isUp ? (
+                  <CaretUpOutlined style={data?.ponte?.color == 'green' ? successSX : errorSX} />
+                ) : (
+                  <CaretDownOutlined style={data?.ponte?.color == 'green' ? successSX : errorSX} />
+                )}{' '}
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Grid container justifyContent={'space-between'}>
+                    <Grid item justifyContent={'end'} xs={4}>
+                      <span>Ponte</span>
+                    </Grid>
+                    <Grid container item justifyContent={'start'} xs={2}>
+                      <Typography sx={infoSX}>
+                        {data?.ponte?.reel}{' '}
+                        <Typography color={'GrayText'} variant="caption">
+                          %
+                        </Typography>
+                      </Typography>
+                    </Grid>
+                    <Grid container item justifyContent={'start'} xs={2}>
+                      <Typography sx={data?.ponte?.isUp ? successSX : errorSX}>{data?.ponte?.ecart}</Typography>
+                    </Grid>
+                    <Grid container justifyContent={'end'} item xs={4}>
+                      <Chip
+                        variant="outlined"
+                        color={data?.ponte?.isUp ? 'success' : 'error'}
+                        icon={
+                          data?.ponte?.isUp ? (
+                            <RiseOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
+                          ) : (
+                            <FallOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
+                          )
+                        }
+                        label={`${data?.ponte?.ecart_prsnt}%`}
+                        sx={{ ml: 0, pl: 1 }}
+                        size="small"
+                      />
+                    </Grid>
+                  </Grid>
+                }
+              />
+            </ListItemButton>
+            <Divider />
+            <ListItemButton
+              sx={{
+                cursor: 'default'
+              }}
+              dense
+            >
+              <ListItemIcon>
+                {data?.mort?.isUp ? (
+                  <CaretUpOutlined style={data?.mort?.color == 'green' ? successSX : errorSX} />
+                ) : (
+                  <CaretDownOutlined style={data?.mort?.color == 'green' ? successSX : errorSX} />
+                )}{' '}
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Grid container justifyContent={'space-between'}>
+                    <Grid item justifyContent={'end'} xs={4}>
+                      <span>Mortalité</span>
+                    </Grid>
+                    <Grid container item justifyContent={'start'} xs={2}>
+                      <Typography sx={infoSX}>
+                        {data?.mort?.reel}{' '}
+                        <Typography color={'GrayText'} variant="caption">
+                          %
+                        </Typography>
+                      </Typography>
+                    </Grid>
+                    <Grid container item justifyContent={'start'} xs={2}>
+                      <Typography sx={data?.mort?.color == 'green' ? successSX : errorSX}>{data?.mort?.ecart}</Typography>
+                    </Grid>
+                    <Grid container justifyContent={'end'} item xs={4}>
+                      <Chip
+                        variant="outlined"
+                        color={data?.pmo?.color == 'green' ? 'success' : 'error'}
+                        icon={
+                          data?.mort?.isUp ? (
+                            <RiseOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
+                          ) : (
+                            <FallOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
+                          )
+                        }
+                        label={`${data?.mort?.ecart_prsnt}%`}
+                        sx={{ ml: 0, pl: 1 }}
+                        size="small"
+                      />
+                    </Grid>
+                  </Grid>
+                }
+              />
+            </ListItemButton>
+            <Divider />
+            <ListItemButton
+              sx={{
+                cursor: 'default'
+              }}
+              dense
+            >
+              <ListItemIcon>
+                {data?.pmo?.isUp ? (
+                  <CaretUpOutlined style={data?.pmo?.color == 'green' ? successSX : errorSX} />
+                ) : (
+                  <CaretDownOutlined style={data?.pmo?.color == 'green' ? successSX : errorSX} />
+                )}{' '}
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Grid container justifyContent={'space-between'}>
+                    <Grid item justifyContent={'end'} xs={4}>
+                      <span>PMO</span>
+                    </Grid>
+                    <Grid container item justifyContent={'start'} xs={2}>
+                      <Typography sx={infoSX}>
+                        {data?.pmo?.reel}{' '}
+                        <Typography color={'GrayText'} variant="caption">
+                          g
+                        </Typography>
+                      </Typography>
+                    </Grid>
+                    <Grid container item justifyContent={'start'} xs={2}>
+                      <Typography sx={data?.pmo?.color == 'green' ? successSX : errorSX}>{data?.pmo?.ecart}</Typography>
+                    </Grid>
+                    <Grid container justifyContent={'end'} item xs={4}>
+                      <Chip
+                        variant="outlined"
+                        color={data?.pmo?.color == 'green' ? 'success' : 'error'}
+                        icon={
+                          data?.pmo?.isUp ? (
+                            <RiseOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
+                          ) : (
+                            <FallOutlined style={{ fontSize: '1rem', color: 'inherit' }} />
+                          )
+                        }
+                        label={`${data?.pmo?.ecart_prsnt}%`}
+                        sx={{ ml: 0, pl: 1 }}
+                        size="small"
+                      />
+                    </Grid>
+                  </Grid>
+                }
+              />
+            </ListItemButton>
+          </List>
+        </Card>
       </Grid>
     </Grid>
   );

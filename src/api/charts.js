@@ -1,12 +1,15 @@
 let base_url = 'https://farmdriver.savas.ma/api/';
 
 const api = {
-  //! Production sites
-  getProdSites: async () => {
+  //! Production Chart
+  getProductionChartData: async (id) => {
+    if (!id) {
+      return;
+    }
     try {
       const accessToken = window.localStorage.getItem('serviceToken');
 
-      const response = await fetch(`${base_url}get-sites-titles/`, {
+      const response = await fetch(`${base_url}table-prod-chart-new/?lotId=${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -18,19 +21,21 @@ const api = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
+      console.log(response);
       return { data, status: response.status };
     } catch (error) {
       console.error(error);
     }
   },
-  getLotTitles: async (id) => {
+  // ! Aliment / oeuf Chart
+  getAlimentChartData: async (id) => {
     if (!id) {
       return;
     }
     try {
       const accessToken = window.localStorage.getItem('serviceToken');
-      console.log(accessToken);
-      const response = await fetch(`${base_url}get-lots-titles/?site=${id}`, {
+
+      const response = await fetch(`${base_url}table-altoeuf-chart-new/?lotId=${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -42,20 +47,21 @@ const api = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
+      console.log(response);
       return { data, status: response.status };
     } catch (error) {
       console.error(error);
     }
   },
-  //! get next send
-  getProudNext: async (id) => {
+  // ! Consommation Chart
+  getConsommationChartData: async (id) => {
     if (!id) {
       return;
     }
     try {
       const accessToken = window.localStorage.getItem('serviceToken');
 
-      const response = await fetch(`${base_url}get-next-send/?lotId=${id}`, {
+      const response = await fetch(`${base_url}table-conso-chart-new/?lotId=${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -67,118 +73,21 @@ const api = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      return { data, status: response.status };
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
-  getBilanPartial: async (id) => {
-    if (!id) {
-      return;
-    }
-    try {
-      const accessToken = window.localStorage.getItem('serviceToken');
-
-      const response = await fetch(`${base_url}partial-bilan/?lotId=${id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      return { data, status: response.status };
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
-  getPerformanceTable: async (id) => {
-    if (!id) {
-      return;
-    }
-    try {
-      const accessToken = window.localStorage.getItem('serviceToken');
-
-      const response = await fetch(`${base_url}get-prod-table-data/?lotId=${id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      return { data, status: response.status };
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
-  // ! delete report
-  deleteReport: async (id) => {
-    if (!id) {
-      return;
-    }
-    try {
-      const accessToken = window.localStorage.getItem('serviceToken');
-
-      const response = await fetch(`${base_url}delete-report/?id=${id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      return { status: response.status };
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
-  // ! get table row details
-  getProductionTableRow: async (id, age) => {
-    if (!id || !age) {
-      return;
-    }
-    try {
-      const accessToken = window.localStorage.getItem('serviceToken');
-
-      const response = await fetch(`${base_url}get-table-row-details/?lotId=${id}&age=${age}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
+      console.log(response);
       return { data, status: response.status };
     } catch (error) {
       console.error(error);
     }
   },
-  // ! get Prefilled for update report
-  getPrefilled: async (id) => {
+  // !  Poids corporel & Homogénéité Chart
+  getPvHomogChartData: async (id) => {
     if (!id) {
       return;
     }
     try {
       const accessToken = window.localStorage.getItem('serviceToken');
 
-      const response = await fetch(`${base_url}get-prefilled-data/?id=${id}`, {
+      const response = await fetch(`${base_url}homog-pv-chart-new/?lotId=${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -190,9 +99,62 @@ const api = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
+      console.log(response);
       return { data, status: response.status };
     } catch (error) {
-      throw new Error(error);
+      console.error(error);
+    }
+  },
+  // !  Mortalité Chart
+  getMortaliteChartData: async (id) => {
+    if (!id) {
+      return;
+    }
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+
+      const response = await fetch(`${base_url}table-mort-chart-new/?lotId=${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(response);
+      return { data, status: response.status };
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  // !  Masse d'œufs Chart
+  getMasseOeufChartData: async (id) => {
+    if (!id) {
+      return;
+    }
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+
+      const response = await fetch(`${base_url}table-massoeuf-chart-new/?lotId=${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(response);
+      return { data, status: response.status };
+    } catch (error) {
+      console.error(error);
     }
   }
 };

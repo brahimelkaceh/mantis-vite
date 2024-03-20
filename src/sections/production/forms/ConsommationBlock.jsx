@@ -11,11 +11,11 @@ const ConsommationBlock = ({ formik }) => {
             id="alimentDist"
             name="alimentDist"
             label="Aliment consommé (Kg)"
-            value={formik.values.alimentDist}
-            onChange={formik.handleChange}
-            error={formik.touched.alimentDist && Boolean(formik.errors.alimentDist)}
-            onBlur={formik.handleBlur}
-            helperText={formik.touched.alimentDist && formik.errors.alimentDist}
+            value={formik?.values.alimentDist}
+            onChange={formik?.handleChange}
+            error={formik?.touched.alimentDist && Boolean(formik?.errors.alimentDist)}
+            onBlur={formik?.handleBlur}
+            helperText={formik?.touched.alimentDist && formik?.errors.alimentDist}
             fullWidth
           />
         </Stack>
@@ -27,11 +27,11 @@ const ConsommationBlock = ({ formik }) => {
             name="eauDist"
             label="Eau consommée (Litre)"
             fullWidth
-            value={formik.values.eauDist}
-            onChange={formik.handleChange}
-            error={formik.touched.eauDist && Boolean(formik.errors.eauDist)}
-            onBlur={formik.handleBlur}
-            helperText={formik.touched.eauDist && formik.errors.eauDist}
+            value={formik?.values.eauDist}
+            onChange={formik?.handleChange}
+            error={formik?.touched.eauDist && Boolean(formik?.errors.eauDist)}
+            onBlur={formik?.handleBlur}
+            helperText={formik?.touched.eauDist && formik?.errors.eauDist}
           />
         </Stack>
       </Grid>
@@ -42,11 +42,11 @@ const ConsommationBlock = ({ formik }) => {
             name="formule"
             label="Référence d'aliment"
             fullWidth
-            value={formik.values.formule}
-            onChange={formik.handleChange}
-            error={formik.touched.formule && Boolean(formik.errors.formule)}
-            onBlur={formik.handleBlur}
-            helperText={formik.touched.formule && formik.errors.formule}
+            value={formik?.values.formule}
+            onChange={formik?.handleChange}
+            error={formik?.touched.formule && Boolean(formik?.errors.formule)}
+            onBlur={formik?.handleBlur}
+            helperText={formik?.touched.formule && formik?.errors.formule}
           />
         </Stack>
       </Grid>

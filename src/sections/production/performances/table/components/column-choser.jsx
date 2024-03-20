@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { MenuOutlined } from '@ant-design/icons';
 
-const ITEM_HEIGHT = 48;
+const ITEM_HEIGHT = 100;
 
 const ChooseColumn = ({ tableHeaders, handleToggleVisibility, visibleChildren, showAll }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,6 +26,7 @@ const ChooseColumn = ({ tableHeaders, handleToggleVisibility, visibleChildren, s
         aria-haspopup="true"
         onClick={handleClick}
         color="primary"
+        variant="contained"
       >
         <MenuOutlined rotate={90} />
       </IconButton>
@@ -40,13 +41,12 @@ const ChooseColumn = ({ tableHeaders, handleToggleVisibility, visibleChildren, s
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch'
+            width: 200
           }
         }}
       >
         {tableHeaders?.map((header, index) => {
           return header.children.map((child) => {
-            console.log(child.title.trim().length > 0);
             return (
               child.title.trim().length > 0 && (
                 <MenuItem key={child.key}>
@@ -55,6 +55,7 @@ const ChooseColumn = ({ tableHeaders, handleToggleVisibility, visibleChildren, s
                       <Checkbox
                         checked={visibleChildren[header.parent]?.includes(child.key)}
                         onChange={() => handleToggleVisibility(header.parent, child.key)}
+                        color="primary"
                       />
                     }
                     label={child.title}

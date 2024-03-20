@@ -2,8 +2,11 @@ import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 
 // material-ui
-import { CssBaseline, StyledEngineProvider } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { StyledEngineProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+
+import { ThemeProvider } from '@mui/material/styles';
+import createTheme from '@mui/material/styles/createTheme';
 
 // project import
 import useConfig from 'hooks/useConfig';
@@ -51,7 +54,6 @@ export default function ThemeCustomization({ children }) {
 
   const themes = createTheme(themeOptions);
   themes.components = componentsOverride(themes);
-
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={themes}>
