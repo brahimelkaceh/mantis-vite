@@ -30,6 +30,7 @@ const performances = {
   title: <FormattedMessage id="Performances" />,
   type: 'group',
   icon: icons.DatabaseOutlined,
+  breadcrumbs: false,
   children: [
     {
       id: 'performance-table',
@@ -43,7 +44,8 @@ const performances = {
       title: <FormattedMessage id="Performances en courbes" />,
       type: 'item',
       url: '/production/performance-charts',
-      icon: icons.FundProjectionScreenOutlined
+      icon: icons.FundProjectionScreenOutlined,
+      breadcrumbs: false
     }
   ]
 };

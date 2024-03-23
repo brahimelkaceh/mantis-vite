@@ -120,11 +120,29 @@ const AltChart = ({ data, show }) => {
       </AxesDirective>
       <SeriesCollectionDirective>
         <SeriesDirective
+          dataSource={data?.reel}
+          xName="age"
+          yName={'altOeufCuml'}
+          name={show ? '∑ APO (g)' : ' '}
+          width={show ? 3 : 2}
+          fill={ThemeMode.DARK == 'light' ? orange[200] : orange[500]}
+          type="Line"
+        ></SeriesDirective>
+        <SeriesDirective
+          dataSource={data?.reel}
+          xName="age"
+          yName={'altOeufSem'}
+          name={show ? 'APO (g)' : ' '}
+          width={show ? 3 : 2}
+          fill={ThemeMode.DARK == 'light' ? green[200] : green[300]}
+          type="Line"
+        ></SeriesDirective>
+        <SeriesDirective
           dataSource={data?.guide}
           xName="age"
           yName={'altOeufCuml'}
           name={show ? 'Guide: ∑ APO (g)' : ' '}
-          width={3.5}
+          width={show ? 5 : 3.5}
           fill={ThemeMode.DARK == 'light' ? orange[200] : orange[500]}
           opacity={0.5}
           type="Line"
@@ -134,42 +152,9 @@ const AltChart = ({ data, show }) => {
           xName="age"
           yName={'altOeufSem'}
           name={show ? 'Guide: APO (g)' : ' '}
-          fill={ThemeMode.DARK == 'light' ? green[200] : green[200]}
-          width={3.5}
-          opacity={0.7}
-          type="Line"
-        ></SeriesDirective>
-        <SeriesDirective
-          dataSource={data?.reel}
-          xName="age"
-          yName={'altOeufCuml'}
-          name={show ? '∑ APO (g)' : ' '}
-          width={3.5}
-          marker={{
-            visible: false,
-            width: 7,
-            height: 7,
-            shape: 'Circle',
-            isFilled: true
-          }}
-          fill="#FFA447"
+          fill={ThemeMode.DARK == 'light' ? green[200] : green[300]}
+          width={show ? 5 : 3.5}
           opacity={0.5}
-          type="Line"
-        ></SeriesDirective>
-        <SeriesDirective
-          dataSource={data?.reel}
-          xName="age"
-          yName={'altOeufSem'}
-          name={show ? 'APO (g)' : ' '}
-          width={3.5}
-          marker={{
-            visible: false,
-            width: 7,
-            height: 7,
-            shape: 'Circle',
-            isFilled: true
-          }}
-          fill="red"
           type="Line"
         ></SeriesDirective>
         <SeriesDirective

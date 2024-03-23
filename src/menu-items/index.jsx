@@ -9,12 +9,13 @@ import pages from './pages';
 import production from './production';
 import performances from './performances';
 import create_report from './create-report';
+import settings from './settings';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
   // items: [widget, applications, formsTables, chartsMap, samplePage, pages, other]
-  items: [production, create_report, performances]
+  items: [production, create_report, performances, settings]
 };
 
 export default menuItems;

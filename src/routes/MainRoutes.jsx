@@ -126,6 +126,11 @@ const Dashboard = Loadable(lazy(() => import('pages/production/dashboard')));
 const NewReport = Loadable(lazy(() => import('pages/production/new-report')));
 const PerformanceTable = Loadable(lazy(() => import('pages/production/performance-table')));
 const PerformanceCharts = Loadable(lazy(() => import('pages/production/performance-charts')));
+const GestionSites = Loadable(lazy(() => import('pages/production/settings/gestion-sties')));
+const GestionLots = Loadable(lazy(() => import('pages/production/settings/gestion-lots')));
+const GestionGuides = Loadable(lazy(() => import('pages/production/settings/gestion-guides')));
+const GestionBatiments = Loadable(lazy(() => import('pages/production/settings/gestion-batiments')));
+const GestionUtilisateurs = Loadable(lazy(() => import('pages/production/settings/gestion-utilisateurs')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -153,6 +158,31 @@ const MainRoutes = {
             {
               path: 'performance-charts',
               element: <PerformanceCharts />
+            }
+          ]
+        },
+        {
+          path: '/production',
+          children: [
+            {
+              path: 'gestion-sites',
+              element: <GestionSites />
+            },
+            {
+              path: 'gestion-lots',
+              element: <GestionLots />
+            },
+            {
+              path: 'gestion-batiments',
+              element: <GestionBatiments />
+            },
+            {
+              path: 'gestion-guides',
+              element: <GestionGuides />
+            },
+            {
+              path: 'gestion-utilisateurs',
+              element: <GestionUtilisateurs />
             }
           ]
         }
