@@ -28,7 +28,7 @@ const SiteTable = ({ data, fetchProdSite }) => {
     setOpen(false);
   };
   return (
-    <TableContainer sx={{ maxHeight: 300 }}>
+    <TableContainer sx={{ maxHeight: 310 }}>
       <Table>
         <TableHead className="sticky-header">
           <TableRow>

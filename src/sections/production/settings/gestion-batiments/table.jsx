@@ -27,7 +27,7 @@ const BatimentTable = ({ data, fetchBatiments }) => {
     setOpen(false);
   };
   return (
-    <TableContainer sx={{ maxHeight: 345 }}>
+    <TableContainer sx={{ maxHeight: 370 }}>
       <Table>
         <TableHead className="sticky-header">
           <TableRow>

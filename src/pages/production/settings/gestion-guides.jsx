@@ -1,20 +1,51 @@
 // material-ui
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import api from 'api/production';
+import { openSnackbar } from 'api/snackbar';
 
 // project import
 import MainCard from 'components/MainCard';
+import { useState } from 'react';
+import GuideTable from 'sections/production/settings/gestion-guides/guide-table';
+import SoucheTable from 'sections/production/settings/gestion-guides/souche-table';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-const GestionGuides = () => (
-  <MainCard title="Sample Card">
-    <Typography variant="body2">
-      Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa. Ut enif ad
-      minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube grue dolor in reprehended
-      in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non president, sunk in culpa qui officiate
-      descent molls anim id est labours.
-    </Typography>
-  </MainCard>
-);
+const GestionGuides = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const fetchGuideData = async (id) => {
+    try {
+      setLoading(true);
+      const result = await api.getGuideData(id);
+
+      if (result.status === 200) {
+        setData(result.data);
+      }
+    } catch (error) {
+      openSnackbar({
+        open: true,
+        message: 'Échec de récupération des données; Veuillez réessayer.',
+        variant: 'alert',
+        alert: {
+          color: 'error'
+        }
+      });
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <GuideTable fetchGuideData={fetchGuideData} />
+      </Grid>
+      <Grid item xs={12}>
+        <SoucheTable data={data} loading={loading} />
+      </Grid>
+    </Grid>
+  );
+};
 
 export default GestionGuides;

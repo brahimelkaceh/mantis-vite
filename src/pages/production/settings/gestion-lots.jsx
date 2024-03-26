@@ -71,6 +71,7 @@ const GestionLots = () => {
       </Grid>
       <Grid item xs={12} md={6}>
         <MainCard
+          content={false}
           title={
             <FormControl variant="outlined" fullWidth controlled>
               <InputLabel id="demo-simple-select-standard-label">{loading ? 'Chargement...' : 'Sélectionnez un Site'}</InputLabel>

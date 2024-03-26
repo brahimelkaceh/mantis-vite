@@ -78,7 +78,7 @@ const settings = {
       type: 'item',
       url: '/production/gestion-guides',
       icon: icons.BranchesOutlined,
-      breadcrumbs: false
+      breadcrumbs: true
     },
     {
       id: 'gestion-utilisateurs',

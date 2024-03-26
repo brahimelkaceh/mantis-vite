@@ -47,7 +47,7 @@ const GestionSite = () => {
         </MainCard>
       </Grid>
       <Grid item xs={12} md={6}>
-        <MainCard>
+        <MainCard content={false}>
           {loading && <LinearProgress />}
           <SiteTable data={data} fetchProdSite={fetchProdSite} />
         </MainCard>

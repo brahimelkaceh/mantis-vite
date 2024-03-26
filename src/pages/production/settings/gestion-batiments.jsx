@@ -48,7 +48,7 @@ const GestionBatiments = () => {
         </MainCard>
       </Grid>
       <Grid item xs={12} md={6}>
-        <MainCard>
+        <MainCard content={false}>
           {loading && <LinearProgress />}
           <BatimentTable data={data} fetchBatiments={fetchBatiments} />
         </MainCard>

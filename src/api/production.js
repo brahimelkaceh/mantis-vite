@@ -276,7 +276,10 @@ const api = {
       console.error(error);
     }
   },
+
   // ******************************** // ******************************** // ********************************
+
+  // ? GUIDES MANAGEMENT
   // ! GET ACTIVE GUIDES
   getProdGuides: async () => {
     try {
@@ -300,6 +303,81 @@ const api = {
     }
   },
 
+  // ! GET ALL GUIDES TITLE
+  getTitleGuides: async () => {
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+
+      const response = await fetch(`${base_url}get-guides-titles/`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      return { data, status: response.status };
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  // ! GET GUIDES DATA
+  getGuideData: async (id) => {
+    if (!id) {
+      return;
+    }
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+      console.log(accessToken);
+      const response = await fetch(`${base_url}get-guide-data/?guide_id=${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      return { data, status: response.status };
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  // !TOGGLE ACTIVE GUIDE
+  toggleActiveGuide: async (id) => {
+    if (!id) {
+      return;
+    }
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+      console.log(accessToken);
+      const response = await fetch(`${base_url}toggle-guide-activation/?guide_id=${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return { status: response.status };
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  // ******************************** // ******************************** // ********************************
   //! Production sites
   getProdSites: async () => {
     try {
@@ -348,6 +426,7 @@ const api = {
       console.error(error);
     }
   },
+  // ! GET LOT TITLES
   getLotTitles: async (id) => {
     if (!id) {
       return;
