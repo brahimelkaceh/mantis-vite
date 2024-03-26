@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // material-ui
 import { Box, Modal, Stack } from '@mui/material';
@@ -10,17 +10,42 @@ import SimpleBar from 'components/third-party/SimpleBar';
 
 import { useGetCustomer } from 'api/customer';
 import FormSiteEdit from './edit';
+import api from 'api/production';
+import { openSnackbar } from 'api/snackbar';
 
 // ==============================|| CUSTOMER ADD / EDIT ||============================== //
 
-const SiteModal = ({ open, modalToggler, site, fetchProdSite }) => {
-  const { customersLoading: loading } = useGetCustomer();
+const LotModal = ({ open, modalToggler, lot, fetchProdLot, sites }) => {
   const closeModal = () => modalToggler(false);
+  const [guides, setGuides] = useState([]);
+  const fetProdActiveGuide = async () => {
+    try {
+      const result = await api.getProdGuides();
+      if (result.status === 200) {
+        console.log(result);
+        setGuides(result.data || []); // Ensure result.data is not null or undefined
+      }
+    } catch (error) {
+      openSnackbar({
+        open: true,
+        message: 'Échec de récupération des données; Veuillez réessayer.',
+        variant: 'alert',
+        alert: {
+          color: 'error'
+        }
+      });
+      console.error(error);
+    }
+  };
 
-  const siteForm = useMemo(
-    () => <FormSiteEdit site={site || null} closeModal={closeModal} fetchProdSite={fetchProdSite} />,
+  useEffect(() => {
+    fetProdActiveGuide();
+  }, []);
+
+  const lotForm = useMemo(
+    () => <FormSiteEdit lot={lot || null} closeModal={closeModal} fetchProdLot={fetchProdLot} sites={sites} guides={guides} />,
     // eslint-disable-next-line
-    [site]
+    [lot]
   );
 
   return (
@@ -38,7 +63,7 @@ const SiteModal = ({ open, modalToggler, site, fetchProdSite }) => {
           }}
         >
           <MainCard
-            sx={{ width: `calc(100% - 48px)`, minWidth: 340, maxWidth: 880, height: 'auto', maxHeight: 'calc(100vh - 48px)' }}
+            sx={{ width: `calc(100% - 48px)`, minWidth: 340, maxWidth: 500, height: 'auto', maxHeight: 'calc(100vh - 48px)' }}
             modal
             content={false}
           >
@@ -51,16 +76,7 @@ const SiteModal = ({ open, modalToggler, site, fetchProdSite }) => {
                 }
               }}
             >
-              {/* {loading ? (
-                <Box sx={{ p: 5 }}>
-                  <Stack direction="row" justifyContent="center">
-                    <CircularWithPath />
-                  </Stack>
-                </Box>
-              ) : (
-                siteForm
-              )} */}
-              {siteForm}
+              {lotForm}
             </SimpleBar>
           </MainCard>
         </Modal>
@@ -69,10 +85,10 @@ const SiteModal = ({ open, modalToggler, site, fetchProdSite }) => {
   );
 };
 
-SiteModal.propTypes = {
+LotModal.propTypes = {
   open: PropTypes.bool,
   modalToggler: PropTypes.func,
   site: PropTypes.object
 };
 
-export default SiteModal;
+export default LotModal;

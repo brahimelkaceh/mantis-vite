@@ -33,7 +33,7 @@ const validationSchema = yup.object({
 
 // ==============================|| FORM VALIDATION - LOGIN FORMIK ||============================== //
 
-const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
+const NewLot = ({ fetchProdLot, siteId, sites }) => {
   const [loading, setLoading] = useState(false);
   const [batiments, setBatiments] = useState([]);
   const [guides, setGuides] = useState([]);
@@ -45,13 +45,17 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
       code: '',
       effectifDP: 0,
       birthDate: new Date(),
-      transferDate: new Date(),
+      // transferDate: new Date(),
       hebdoFill: false,
       reformStarted: false
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      createNewLot(values);
+      const formattedValues = {
+        ...values,
+        birthDate: values.birthDate.toLocaleString('en-GB').split(',')[0].replaceAll('/', '-').split('-').reverse().join('-')
+      };
+      createNewLot(formattedValues);
       resetForm();
     }
   });
@@ -69,7 +73,9 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
           }
         });
         setLoading(false);
-        fetchProdBatiment();
+        if (siteId) {
+          fetchProdLot(siteId);
+        }
       }
       if (response.status !== 200) {
         openSnackbar({
@@ -99,7 +105,7 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
   const fetchProdBatiment = async (id) => {
     try {
       setLoading(true);
-      const result = await api.getAllBatiments(id);
+      const result = await api.getProdBatiments(id);
       if (result.status === 200) {
         const pproudBats = result?.data?.filter((d) => d.type === 'production' && d.isEmpty);
         setBatiments(pproudBats);
@@ -147,8 +153,8 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Stack spacing={1}>
+        <Grid item xs={12} md={4}>
+          <Stack spacing={0}>
             <InputLabel id="demo-simple-select-label"> {loading ? 'chargement...' : 'Sélectionner site'}</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -176,8 +182,8 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
             </Select>
           </Stack>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Stack spacing={1}>
+        <Grid item xs={12} md={4}>
+          <Stack spacing={0}>
             <InputLabel id="demo-simple-select-label"> {loading ? 'chargement...' : 'Sélectionner bâtiment'}</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -204,8 +210,8 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
             </Select>
           </Stack>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Stack spacing={1}>
+        <Grid item xs={12} md={4}>
+          <Stack spacing={0}>
             <InputLabel id="demo-simple-select-label"> {loading ? 'chargement...' : 'Sélectionner guide'}</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -233,7 +239,7 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
           </Stack>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Stack spacing={1}>
+          <Stack spacing={0}>
             <InputLabel htmlFor="code">Code lot</InputLabel>
             <TextField
               fullWidth
@@ -248,13 +254,13 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
           </Stack>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Stack spacing={1}>
+          <Stack spacing={0}>
             <InputLabel htmlFor="effectifDP">Effectif logée</InputLabel>
             <TextField
               fullWidth
               id="effectifDP"
               name="effectifDP"
-              placeholder="Effectif logée              "
+              placeholder="Effectif logée"
               value={formik.values.effectifDP}
               onChange={formik.handleChange}
               error={formik.touched.effectifDP && Boolean(formik.errors.effectifDP)}
@@ -263,8 +269,8 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
           </Stack>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Stack spacing={1}>
-            <InputLabel htmlFor="birthDate">Date Mise en place</InputLabel>
+          <Stack spacing={0}>
+            <InputLabel htmlFor="birthDate">Date naissance</InputLabel>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 id="birthDate"
@@ -279,8 +285,8 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
             </LocalizationProvider>
           </Stack>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Stack spacing={1}>
+        {/* <Grid item xs={12} md={6}>
+          <Stack spacing={0}>
             <InputLabel htmlFor="transferDate">Date transfert</InputLabel>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
@@ -289,13 +295,15 @@ const NewLot = ({ fetchProdLot, siteId, setSiteId, sites }) => {
                 inputFormat="MM/dd/yyyy"
                 value={formik.values.transferDate}
                 name="transferDate"
-                onChange={(newValue) => formik.setFieldValue('transferDate', newValue)}
+                onChange={(newValue) => {
+                  formik.setFieldValue('transferDate', newValue);
+                }}
                 error={formik.touched.transferDate && Boolean(formik.errors.transferDate)}
                 helperText={formik.touched.transferDate && formik.errors.transferDate}
               />
             </LocalizationProvider>
           </Stack>
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12}>
           <Stack direction="row" justifyContent="flex-end">

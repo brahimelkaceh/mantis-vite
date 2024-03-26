@@ -14,8 +14,7 @@ import BatimentTable from 'sections/production/settings/gestion-batiments/table'
 const GestionBatiments = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [sites, setSites] = useState([]);
-  const [siteId, setSiteId] = useState(null);
+
   const fetchBatiments = async () => {
     try {
       setLoading(true);
@@ -37,30 +36,8 @@ const GestionBatiments = () => {
       setLoading(false);
     }
   };
-  const fetchProdSite = async () => {
-    try {
-      setLoading(true);
-      const result = await api.getAllSites();
-      if (result.status === 200) {
-        setSites(result?.data);
-      }
-    } catch (error) {
-      openSnackbar({
-        open: true,
-        message: 'Échec de récupération des données; Veuillez réessayer.',
-        variant: 'alert',
-        alert: {
-          color: 'error'
-        }
-      });
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
-    fetchProdSite();
     fetchBatiments();
   }, []);
   return (

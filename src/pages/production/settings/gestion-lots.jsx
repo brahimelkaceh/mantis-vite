@@ -1,5 +1,5 @@
 // material-ui
-import { Grid, LinearProgress, Typography } from '@mui/material';
+import { FormControl, Grid, InputLabel, LinearProgress, MenuItem, Select, Typography } from '@mui/material';
 import api from 'api/production';
 import { openSnackbar } from 'api/snackbar';
 
@@ -16,12 +16,11 @@ const GestionLots = () => {
   const [data, setData] = useState([]);
   const [sites, setSites] = useState([]);
   const [siteId, setSiteId] = useState(null);
-  const fetchProdLot = async () => {
+  const fetchProdLot = async (id) => {
     try {
       setLoading(true);
-      const result = await api.getAllSites();
+      const result = await api.getLotTitles(id);
       if (result.status === 200) {
-        console.log(result.data);
         setData(result?.data);
       }
     } catch (error) {
@@ -41,9 +40,8 @@ const GestionLots = () => {
   const fetchProdSite = async () => {
     try {
       setLoading(true);
-      const result = await api.getAllSites();
+      const result = await api.getProdSites();
       if (result.status === 200) {
-        console.log(result.data);
         setSites(result?.data);
       }
     } catch (error) {
@@ -63,19 +61,46 @@ const GestionLots = () => {
 
   useEffect(() => {
     fetchProdSite();
-    fetchProdLot();
   }, []);
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={6}>
-        <MainCard title="Déclarer un Site">
+        <MainCard title="Déclarer un lot">
           <NewLot fetchProdLot={fetchProdLot} sites={sites} setSiteId={setSiteId} siteId={siteId} />
         </MainCard>
       </Grid>
       <Grid item xs={12} md={6}>
-        <MainCard>
+        <MainCard
+          title={
+            <FormControl variant="outlined" fullWidth controlled>
+              <InputLabel id="demo-simple-select-standard-label">{loading ? 'Chargement...' : 'Sélectionnez un Site'}</InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={siteId}
+                disabled={loading}
+                onChange={(e) => {
+                  setSiteId(e.target.value);
+                  fetchProdLot(e.target.value);
+                }}
+                label="sites"
+              >
+                <MenuItem value="" disabled>
+                  <em>Sélectionnez site</em>
+                </MenuItem>
+                {sites &&
+                  sites.map((site) => (
+                    <MenuItem key={site.id} value={site.id}>
+                      {site.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          }
+        >
           {loading && <LinearProgress />}
-          <LotTable data={data} fetchProdLot={fetchProdLot} />
+          <Grid mb={2}></Grid>
+          <LotTable data={data} fetchProdLot={fetchProdLot} sites={sites} siteId={siteId} />
         </MainCard>
       </Grid>
     </Grid>

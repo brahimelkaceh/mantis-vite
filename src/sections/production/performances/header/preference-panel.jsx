@@ -54,7 +54,6 @@ const PreferencePanel = ({ fetchBilanPartialData, fetchPerformanceTable }) => {
       const result = await api.getProdSites();
       if (result.status === 200) {
         setSites(result?.data);
-        console.log(result.data);
       }
     } catch (error) {
       openSnackbar({

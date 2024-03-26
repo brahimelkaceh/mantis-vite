@@ -1,5 +1,6 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
+  Avatar,
   IconButton,
   Paper,
   Stack,
@@ -13,54 +14,68 @@ import {
   Typography
 } from '@mui/material';
 import React, { useState } from 'react';
-import AlertCustomerDelete from 'sections/apps/customer/AlertCustomerDelete';
-import AlertSiteDelete from './delete';
-import { Edit } from '@mui/icons-material';
-import SiteModal from './modal';
+import AlertLotDelete from './delete';
+import LotModal from './modal';
 
-const LotTable = ({ data, fetchProdSite }) => {
+const LotTable = ({ data, fetchProdLot, siteId, sites }) => {
   const [open, setOpen] = useState(false);
-  const [siteDeleteId, setSiteDeleteId] = useState(null);
-  const [siteModal, setSiteModal] = useState(false);
-  const [selectedSite, setSelectedSite] = useState(null);
+  const [lotDeleteId, setLotDeleteId] = useState(null);
+  const [lotModal, setLotModal] = useState(false);
+  const [selectedLot, setSelectedLot] = useState(null);
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  if (data?.length < 1) {
+    return (
+      <Typography color={'error'} textAlign={'center'}>
+        Aucune donnée à afficher.{' '}
+      </Typography>
+    );
+  }
+
   return (
     <TableContainer sx={{ maxHeight: 300 }}>
       <Table>
         <TableHead className="sticky-header">
           <TableRow>
-            <TableCell align="center">Site</TableCell>
-            <TableCell align="center"> Phone</TableCell>
+            <TableCell align="left">Bâtiment</TableCell>
+            <TableCell align="center">Code</TableCell>
             <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data &&
-            data?.map((site) => {
+            data?.map((lot) => {
               return (
                 <TableRow hover>
                   <TableCell align="center">
-                    <Typography variant="subtitle1">{site.name}</Typography>
+                    <Avatar
+                      variant="rounded"
+                      color="primary"
+                      sx={{
+                        backgroundColor: '#2196f3',
+                        color: '#fff'
+                      }}
+                    >
+                      {lot.batiment}
+                    </Avatar>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography variant="subtitle1">{site.phone ?? '--'}</Typography>
+                    <Typography variant="subtitle1">{lot.code ?? '--'}</Typography>
                   </TableCell>
                   <TableCell align="right">
                     <Stack flexDirection={'row'} alignItems={'center'} justifyContent={'end'}>
-                      {/* // <EditLot lot={lot} setRefetchData={setRefetchData} site={siteId} /> */}
-                      {/* // <DeleteLot id={lot.id} setRefetchData={setRefetchData} deletable={lot.deletable} /> */}
                       <Tooltip title="Supprimer">
                         <IconButton
                           color="error"
                           variant="contained"
-                          disabled={!site.deletable}
+                          disabled={!lot.deletable}
                           onClick={(e) => {
                             e.stopPropagation();
                             setOpen(true);
-                            setSiteDeleteId(site.id);
+                            setLotDeleteId(lot.id);
                           }}
                         >
                           <DeleteOutlined />
@@ -72,8 +87,8 @@ const LotTable = ({ data, fetchProdSite }) => {
                           variant="contained"
                           onClick={(e) => {
                             e.stopPropagation();
-                            setSiteModal(true);
-                            setSelectedSite(site);
+                            setLotModal(true);
+                            setSelectedLot(lot);
                           }}
                         >
                           <EditOutlined />
@@ -86,8 +101,8 @@ const LotTable = ({ data, fetchProdSite }) => {
             })}
         </TableBody>
       </Table>
-      <AlertSiteDelete fetchProdSite={fetchProdSite} id={siteDeleteId} open={open} handleClose={handleClose} />
-      <SiteModal open={siteModal} modalToggler={setSiteModal} site={selectedSite} fetchProdSite={fetchProdSite} />
+      <AlertLotDelete fetchProdLot={fetchProdLot} id={lotDeleteId} open={open} handleClose={handleClose} siteId={siteId} />
+      <LotModal open={lotModal} modalToggler={setLotModal} lot={selectedLot} fetchProdLot={fetchProdLot} sites={sites} />
     </TableContainer>
   );
 };

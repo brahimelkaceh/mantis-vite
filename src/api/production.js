@@ -139,6 +139,51 @@ const api = {
     }
   },
 
+  // ! DELETE LOT
+  deleteLot: async (id) => {
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+
+      const response = await fetch(`${base_url}delete-lot/?id=${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return { status: response.status };
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  // ! UPDATE LOT
+  updateLot: async (data) => {
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+
+      const response = await fetch(`${base_url}update-lot/`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return { status: response.status };
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
   // ******************************** // ******************************** // ******************************** // ******************************** // ******************************** // ******************************** // ******************************** // ******************************** // ******************************** // ********************************
   // ? BATIMENTS MANAGEMENT
   //  ! GAT All Batiments
@@ -261,6 +306,32 @@ const api = {
       const accessToken = window.localStorage.getItem('serviceToken');
 
       const response = await fetch(`${base_url}get-sites-titles/`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      return { data, status: response.status };
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  // ! Production Batiments
+  getProdBatiments: async (id) => {
+    if (!id) {
+      return;
+    }
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+      console.log(accessToken);
+      const response = await fetch(`${base_url}get-site-bats/?site=${id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -16,13 +16,13 @@ import api from 'api/production';
 
 // ==============================|| CUSTOMER - DELETE ||============================== //
 
-export default function AlertLotDelete({ id, open, handleClose, fetchProdSite }) {
+export default function AlertLotDelete({ id, open, handleClose, fetchProdLot, siteId }) {
   const deletehandler = async () => {
-    const response = await api.deleteSite(id);
+    const response = await api.deleteLot(id);
     if (response.status !== 200) {
       openSnackbar({
         open: true,
-        message: 'La suppression du site a échoué. Veuillez réessayer.',
+        message: 'La suppression du lot a échoué. Veuillez réessayer.',
         anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
         variant: 'alert',
         alert: {
@@ -32,14 +32,14 @@ export default function AlertLotDelete({ id, open, handleClose, fetchProdSite })
     } else {
       openSnackbar({
         open: true,
-        message: 'Le site a été supprimé avec succès.',
+        message: 'Le lot a été supprimé avec succès.',
         anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
         variant: 'alert',
         alert: {
           color: 'success'
         }
       });
-      fetchProdSite();
+      fetchProdLot(siteId);
     }
     handleClose();
   };

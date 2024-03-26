@@ -58,7 +58,7 @@ const Palette = (mode, presetColor) => {
       },
       divider: mode === ThemeMode.DARK ? alpha(paletteColor.grey[900], 0.2) : paletteColor.grey[300],
       background: {
-        paper: mode === ThemeMode.DARK ? paletteColor.grey[0] : paletteColor.grey[0],
+        paper: mode === ThemeMode.DARK ? paletteColor.grey[100] : paletteColor.grey[0],
         default: paletteColor.grey.A50
       }
     }

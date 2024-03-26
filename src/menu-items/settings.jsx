@@ -62,7 +62,7 @@ const settings = {
       type: 'item',
       url: '/production/gestion-lots',
       icon: icons.DatabaseOutlined,
-      breadcrumbs: false
+      breadcrumbs: true
     },
     {
       id: 'gestion-batiments',
@@ -70,7 +70,7 @@ const settings = {
       type: 'item',
       url: '/production/gestion-batiments',
       icon: icons.HomeOutlined,
-      breadcrumbs: false
+      breadcrumbs: true
     },
     {
       id: 'gestion-guides',
