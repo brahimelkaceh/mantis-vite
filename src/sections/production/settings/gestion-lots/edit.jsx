@@ -254,6 +254,7 @@ const FormLotEdit = ({ lot, closeModal, fetchProdLot, sites, guides }) => {
                             name="batiment"
                             {...getFieldProps('batiment')}
                             onChange={(event) => {
+                              console.log(event.target.value);
                               setFieldValue('batiment', event.target.value);
                             }}
                             input={<OutlinedInput id="select-column-hiding" placeholder="Sort by" />}
