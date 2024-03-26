@@ -18,6 +18,7 @@ import useConfig from 'hooks/useConfig';
 import DrawerHeader from 'layout/Dashboard/Drawer/DrawerHeader';
 
 import { MenuOrientation } from 'config';
+import SynthesePerfomance from './SynthesePerfomance';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
@@ -35,6 +36,7 @@ const HeaderContent = () => {
     <>
       {menuOrientation === MenuOrientation.HORIZONTAL && !downLG && <DrawerHeader open={true} />}
       {!downLG && <Search />}
+      <SynthesePerfomance />
       {!downLG && megaMenu}
       {!downLG && localization}
       {downLG && <Box sx={{ width: '100%', ml: 1 }} />}
