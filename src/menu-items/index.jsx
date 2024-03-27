@@ -10,12 +10,13 @@ import production from './production';
 import performances from './performances';
 import create_report from './create-report';
 import settings from './settings';
+import comparatif from './comparatif';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
   // items: [widget, applications, formsTables, chartsMap, samplePage, pages, other]
-  items: [production, create_report, performances, settings]
+  items: [production, create_report, performances, settings, comparatif]
 };
 
 export default menuItems;

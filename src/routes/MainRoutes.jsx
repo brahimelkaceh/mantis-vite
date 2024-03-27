@@ -131,6 +131,8 @@ const GestionLots = Loadable(lazy(() => import('pages/production/settings/gestio
 const GestionGuides = Loadable(lazy(() => import('pages/production/settings/gestion-guides')));
 const GestionBatiments = Loadable(lazy(() => import('pages/production/settings/gestion-batiments')));
 const GestionUtilisateurs = Loadable(lazy(() => import('pages/production/settings/gestion-utilisateurs')));
+const ComparatifLot = Loadable(lazy(() => import('pages/production/comparatif/comparatif-lot')));
+const ComparatifParam = Loadable(lazy(() => import('pages/production/comparatif/comparatif-param')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -183,6 +185,19 @@ const MainRoutes = {
             {
               path: 'gestion-utilisateurs',
               element: <GestionUtilisateurs />
+            }
+          ]
+        },
+        {
+          path: '/production',
+          children: [
+            {
+              path: 'comparatif-lot',
+              element: <ComparatifLot />
+            },
+            {
+              path: 'gestion-parametre',
+              element: <ComparatifParam />
             }
           ]
         }

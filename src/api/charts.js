@@ -156,6 +156,31 @@ const api = {
     } catch (error) {
       console.error(error);
     }
+  },
+  // ! GET COMPAR CHARTS
+  getComparCharts: async (lot, courbeId) => {
+    if (!lot || (courbeId !== 0 && !courbeId)) {
+      return;
+    }
+    try {
+      const accessToken = window.localStorage.getItem('serviceToken');
+
+      const response = await fetch(`${base_url}compare-multi-charts/?lots=${JSON.stringify(lot)}&courbe=${courbeId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      return { data, status: response.status };
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 
